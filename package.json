@@ -1,0 +1,16 @@
+{
+  "name": "cynic",
+  "version": "0.0.0",
+  "description": "Superior chainable runtime assertions.",
+  "main": "build/Cynic.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "Chase Moskal",
+  "license": "ISC",
+  "devDependencies": {
+    "tape": "^4.5.1",
+    "typescript": "^1.8.9"
+  }
+}
