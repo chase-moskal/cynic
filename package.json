@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "author": "Chase Moskal",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "tape": "^4.5.1",
     "typescript": "^1.8.9"
