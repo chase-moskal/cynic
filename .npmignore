@@ -1,4 +1,6 @@
 .vscode
+build/testing
 node_modules
+typings
 .gitignore
 tsconfig.json

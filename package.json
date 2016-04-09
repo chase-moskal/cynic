@@ -4,13 +4,16 @@
   "description": "Superior chainable runtime assertions.",
   "main": "build/Cynic.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc && echo Build complete. && echo . && npm run tape --silent",
+    "tape": "tape build/testing/**/*.js",
+    "test": "npm run tape --silent | faucet"
   },
   "keywords": [],
   "author": "Chase Moskal",
   "license": "MIT",
   "devDependencies": {
-    "tape": "^4.5.1",
+    "blue-tape": "^0.2.0",
+    "faucet": "0.0.1",
     "typescript": "^1.8.9"
   }
 }
