@@ -1,5 +1,5 @@
 .vscode
-build/testing
+build/tests
 node_modules
 typings
 .gitignore

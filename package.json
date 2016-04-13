@@ -1,11 +1,11 @@
 {
   "name": "cynic",
-  "version": "0.0.0",
-  "description": "Superior chainable runtime assertions.",
+  "version": "0.0.1",
+  "description": "Chainable runtime assertions; Type checking in JavaScript",
   "main": "build/Cynic.js",
   "scripts": {
-    "build": "tsc && echo Build complete. && echo . && npm run tape --silent",
-    "tape": "tape build/testing/**/*.js",
+    "build": "tsc && echo Build complete.",
+    "tape": "tape build/tests/**/*.js",
     "test": "npm run tape --silent | faucet"
   },
   "keywords": [],

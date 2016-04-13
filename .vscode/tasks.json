@@ -8,6 +8,11 @@
             "taskName": "build",
             "problemMatcher": "$tsc",
             "isBuildCommand": true
+        },
+        {
+            "taskName": "tape",
+            "problemMatcher": "$tsc",
+            "isTestCommand": true
         }
     ]
 }
