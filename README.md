@@ -1,7 +1,7 @@
 # Cynic
 Chainable runtime type checking for JavaScript
 
-## Written in TypeScript
+ - Written in TypeScript.
 
 ## Visual Studio Code
 
