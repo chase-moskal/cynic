@@ -3,7 +3,7 @@ Chainable type checking assertions in JavaScript
 
 --------
 
-Cynic is a collection of tests for basic type checking in JavaScript.
+## Usage
 
 ```javascript
 if (Cynic.number(x)) performMaths(x);
@@ -24,8 +24,8 @@ var result = new Cynic(x, "or").number().string().result;
 ## Facts
 
 Cynic is:
- - Written in TypeScript
  - Compiled to UMD
+ - Written in TypeScript
  - Potentially an assertion library
 
 ## Development
