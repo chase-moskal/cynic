@@ -1,7 +1,7 @@
 
-import Chain, {ChainMode, invert } from "./Chain";
+import Chain, {ChainMode, invert} from "./Chain";
 import tests from "./tests";
-export {Chain, ChainMode, invert };
+export {Chain, ChainMode, invert, tests};
 declare var Symbol;
 
 export default class Cynic extends Chain {
