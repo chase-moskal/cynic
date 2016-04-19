@@ -1,7 +1,7 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "umd",
         "target": "es5",
         "rootDir": "source",
         "outDir": "build",
@@ -10,6 +10,7 @@
     },
     "exclude": [
         "build",
+        "coverage",
         "node_modules",
         "typings"
     ]

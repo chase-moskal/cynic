@@ -1,12 +1,13 @@
 {
   "name": "cynic",
   "version": "0.0.1",
-  "description": "Chainable runtime assertions; Type checking in JavaScript",
+  "description": "Chainable type checking assertions",
   "main": "build/Cynic.js",
   "scripts": {
     "build": "tsc && echo Build complete.",
     "tape": "tape build/tests/**/*.js",
-    "test": "npm run tape --silent | faucet"
+    "test": "npm run tape --silent | faucet",
+    "prepublish": "typings install && npm run build --silent && npm test --silent"
   },
   "keywords": [],
   "author": "Chase Moskal",
@@ -14,6 +15,7 @@
   "devDependencies": {
     "blue-tape": "^0.2.0",
     "faucet": "0.0.1",
-    "typescript": "^1.8.9"
+    "typescript": "^1.8.10",
+    "typings": "^0.7.12"
   }
 }

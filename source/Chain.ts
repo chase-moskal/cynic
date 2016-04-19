@@ -19,10 +19,10 @@ export default class Chain {
     private passing: boolean;
 
     // Records of the outcome of each test performed on the chain. When the chain fails and throws the default error, these records are used to display which tests had failed.
-    private records: any[] = [];
+    private records: {testName:string; testResult:boolean; inverted:boolean}[] = [];
 
     // Chain constructor
-    constructor(value: any, mode: ChainMode|string = ChainMode.And) {
+    constructor(value:any, mode:ChainMode|string = ChainMode.And) {
         this.value = value;
         this.mode = (mode === ChainMode.And || mode === 'AND' || mode === 'and' || mode === '&&')
             ? ChainMode.And
@@ -31,29 +31,54 @@ export default class Chain {
         this.records = [];
     }
 
-    // Run a test under the context of this chain.
-    test(testName: string, test: Function, args?: IArguments) {
+    // Check arguments for whether an inverter is present, and get back a clean 'inverter-free' version of the arguments.
+    private static parseForInversion(args:IArguments|any[]): {inverted:boolean; cleanArgs:any[]} {
 
         // Convert args to an array.
-        let params: any[] = args ? [].slice.call(args) : [];
+        const params: any[] = args ? [].slice.call(args) : [];
 
-        // Whether an inverter is present.
-        const inverted: boolean = params.some(param => param === invert);
+        return {
+            // Determine if an inverter is present in args.
+            inverted: params.some(param => param === invert),
 
-        // Filter out the inverter.
-        params = params.filter(param => param !== invert);
+            // Filter out the inverter.
+            cleanArgs: params.filter(param => param !== invert)
+        };
+    }
 
-        // Prepend value into the cleanParams array.
-        params.unshift(this.value);
+    // Run a test statically.
+    static test(testFunction:Function, args?:IArguments|any[]): boolean {
 
-        // Run the test, with the modified params.
-        let testResult = test.apply(this, params);
+        // Parse the arguments for inversion (cleanArgs that comes back has any inverter removed).
+        const {inverted, cleanArgs} = Chain.parseForInversion(args);
+
+        // Run the test.
+        let testResult: boolean = testFunction.apply(this, cleanArgs);
 
         // Apply inversion.
         if (inverted) testResult = !testResult;
 
+        // Return the test result.
+        return testResult;
+    }
+
+    // Run a test on the chain.
+    test(testName:string, test:Function, args?:IArguments|any[]) {
+
+        // Parse the arguments for inversion.
+        const {inverted, cleanArgs} = Chain.parseForInversion(args);
+
+        // Prepend value into the clean arguments array.
+        cleanArgs.unshift(this.value);
+
+        // Run the test.
+        let testResult: boolean = test.apply(this, cleanArgs);
+
+        // Apply inversion to the test result.
+        if (inverted) testResult = !testResult;
+
         // Keep records.
-        this.records.push({ testName, testResult, inverted });
+        this.records.push({testName, testResult, inverted});
 
         // Determine the passing state of the chain.
         this.passing = (this.mode === ChainMode.And)
@@ -73,7 +98,7 @@ export default class Chain {
 
     // Chain method: else
     // Chain terminator. Implements functionality for default values, fallback values, and error handling.
-    else(fallbackValue: any) {
+    else(fallbackValue:any) {
 
         // If the *value* is undefined while the *default* is defined, the *default* is returned.
         if ((this.value === undefined) && (this.defaultValue !== undefined))
