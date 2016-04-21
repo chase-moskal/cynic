@@ -1,7 +1,9 @@
+
 .vscode
 coverage
-build/tests
 node_modules
+source/tests
 typings
 .gitignore
 tsconfig.json
+typings.json

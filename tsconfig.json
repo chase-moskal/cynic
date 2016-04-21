@@ -3,13 +3,12 @@
     "compilerOptions": {
         "module": "umd",
         "target": "es5",
-        "rootDir": "source",
-        "outDir": "build",
+        "rootDir": ".",
+        "outDir": ".",
         "sourceMap": true,
         "declaration": true
     },
     "exclude": [
-        "build",
         "coverage",
         "node_modules",
         "typings"
