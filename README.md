@@ -1,5 +1,5 @@
 # Cynic
-Chainable type checking assertions in JavaScript
+Chainable type checking assertions for JavaScript
 
 --------
 
