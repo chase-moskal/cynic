@@ -7,7 +7,7 @@ const pass = Promise.resolve();
 
 test("==== Cynic.test.ts ====", () => pass);
 
-// All of these tests should probably be moved to Chain.test.ts...
+// TODO: All of these tests should probably be moved to Chain.test.ts...
 
 test("static context", test => {
     test.true(Cynic.set(true), "'set' test works statically");

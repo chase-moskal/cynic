@@ -7,7 +7,7 @@ const pass = Promise.resolve();
 
 test("==== tests.test.ts ====", () => pass);
 
-// This is too repetitive. Let's DRY this up.
+// TODO: This is too repetitive. Let's DRY this up.
 // We need a function that runs all basic values through each test to ensure no major errors.
 
 test("test: set", test => {
