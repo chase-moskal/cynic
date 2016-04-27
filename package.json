@@ -5,8 +5,8 @@
   "main": "source/Cynic.js",
   "scripts": {
     "build": "tsc && echo Build complete.",
-    "tape": "tape source/tests/**/*.js",
-    "test": "npm run tape --silent | faucet",
+    "tape": "tape source/tests/**/*.test.js",
+    "test": "npm run build --silent && npm run tape --silent | faucet",
     "prepublish": "typings install && npm run build --silent && npm test --silent"
   },
   "keywords": [],
