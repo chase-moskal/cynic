@@ -7,7 +7,7 @@
     "build": "tsc && browserify source/Cynic.prebundle.js -o source/Cynic.bundle.js && echo Build complete.",
     "tape": "tape source/tests/**/*.test.js",
     "test": "npm run build --silent && npm run tape --silent | faucet",
-    "prepublish": "typings install && npm run build --silent && npm test --silent"
+    "prepublish": "typings install && npm test --silent"
   },
   "keywords": [],
   "author": "Chase Moskal",
