@@ -1,10 +1,10 @@
 {
   "name": "cynic",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Chainable type checking assertions",
   "main": "source/Cynic.js",
   "scripts": {
-    "build": "tsc && echo Build complete.",
+    "build": "tsc && browserify source/Cynic.prebundle.js -o source/Cynic.bundle.js && echo Build complete.",
     "tape": "tape source/tests/**/*.test.js",
     "test": "npm run build --silent && npm run tape --silent | faucet",
     "prepublish": "typings install && npm run build --silent && npm test --silent"
@@ -14,6 +14,7 @@
   "license": "MIT",
   "devDependencies": {
     "blue-tape": "^0.2.0",
+    "browserify": "^13.0.0",
     "faucet": "0.0.1",
     "typescript": "^1.8.10",
     "typings": "^0.7.12"
