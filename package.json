@@ -1,22 +1,45 @@
 {
-  "name": "cynic",
-  "version": "0.0.3",
-  "description": "Chainable type checking assertions",
-  "main": "source/Cynic.js",
-  "scripts": {
-    "build": "tsc && browserify source/Cynic.prebundle.js -o source/Cynic.bundle.js && echo Build complete.",
-    "tape": "tape source/tests/**/*.test.js",
-    "test": "npm run build --silent && npm run tape --silent | faucet",
-    "prepublish": "typings install && npm test --silent"
-  },
-  "keywords": [],
-  "author": "Chase Moskal",
-  "license": "MIT",
-  "devDependencies": {
-    "blue-tape": "^0.2.0",
-    "browserify": "^13.0.0",
-    "faucet": "0.0.1",
-    "typescript": "^1.8.10",
-    "typings": "^0.7.12"
-  }
+	"name": "cynic",
+	"version": "0.1.0-dev.0",
+	"description": "dead-simple run-everywhere async testing framework",
+	"license": "ISC",
+	"author": "Chase Moskal <chasemoskal@gmail.com",
+	"type": "module",
+	"module": "dist/cynic.js",
+	"main": "dist-cjs/cynic.js",
+	"exports": {
+		"import": "dist/cynic.js",
+		"require": "dist-cjs/cynic.js"
+	},
+	"files": [
+		"dist",
+		"source",
+		"dist-cjs"
+	],
+	"scripts": {
+		"prepare": "run-s clean && run-p compile-esm compile-cjs && run-s test",
+		"clean": "rimraf dist dist-cjs && mkdirp dist dist-cjs",
+		"compile-esm": "tsc",
+		"compile-cjs": "tsc --module commonjs --outDir dist-cjs",
+		"watch": "npm run compile-esm -s -- --watch & npm run compile-cjs -s -- --watch",
+		"start": "serve",
+		"test": "exit 0"
+	},
+	"keywords": [],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/chase-moskal/cynic.git"
+	},
+	"bugs": {
+		"url": "https://github.com/chase-moskal/cynic/issues"
+	},
+	"homepage": "https://github.com/chase-moskal/cynic#readme",
+	"devDependencies": {
+		"mkdirp": "^0.5.1",
+		"npm-run-all": "^4.1.5",
+		"rimraf": "^3.0.0",
+		"serve": "^11.3.0",
+		"typescript": "^3.7.4"
+	},
+	"dependencies": {}
 }

@@ -1,16 +1,18 @@
 {
-    "compileOnSave": true,
-    "compilerOptions": {
-        "module": "umd",
-        "target": "es5",
-        "rootDir": ".",
-        "outDir": ".",
-        "sourceMap": true,
-        "declaration": true
-    },
-    "exclude": [
-        "coverage",
-        "node_modules",
-        "typings"
-    ]
+	"compilerOptions": {
+		"baseUrl": ".",
+		"rootDir": "source",
+		"outDir": "dist",
+		"target": "esnext",
+		"lib": ["es6", "dom"],
+		"module": "esnext",
+		"moduleResolution": "node",
+		"experimentalDecorators": true,
+		"noImplicitAny": true,
+		"sourceMap": true,
+		"declaration": true
+	},
+	"include": [
+		"source/**/*"
+	]
 }
