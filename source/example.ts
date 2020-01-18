@@ -1,5 +1,5 @@
 
-import {Suite, tests} from "./cynic.js"
+import {Suite, test} from "./cynic.js"
 
 const suite: Suite = {
 	"environment test": true,
@@ -36,7 +36,7 @@ const suite: Suite = {
 
 ;(async() => {
 
-	const {report} = await tests(
+	const {report} = await test(
 		"My example test suite!",
 		suite
 	)
