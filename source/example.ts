@@ -1,16 +1,17 @@
 
-import {Tests, suite} from "./cynic.js"
+import {Suite, tests} from "./cynic.js"
 
-const tests: Tests = {
+const suite: Suite = {
 	"environment test": true,
 	"cryptography": {
 		"simple hash works": async() => {
+			return true
 			throw new Error("major error!")
 		},
 		"deliberately fails": async() => {
 			try {
+				return true
 				throw new Error("major error!")
-				return false
 			}
 			catch (error) {
 				return true
@@ -18,7 +19,7 @@ const tests: Tests = {
 		},
 		"digital signatures": {
 			"can be signed and verified": true,
-			"can detect tampered data": false,
+			"can detect tampered data": true,
 			"can detect tampered keys": true,
 		},
 		"encrypt/decrypt": true,
@@ -26,7 +27,7 @@ const tests: Tests = {
 	"json rpc": {
 		"renraku works from node": async() => {
 			return new Promise((resolve, reject) => {
-				setTimeout(resolve, 10)
+				setTimeout(() => resolve(true), 10)
 			})
 		},
 		"renraku works in browser": true,
@@ -35,9 +36,11 @@ const tests: Tests = {
 
 ;(async() => {
 
-	const {report, ...stats} = await suite(
+	const {report} = await tests(
 		"My example test suite!",
-		tests
+		suite
 	)
+
+	console.log(report)
 
 })()

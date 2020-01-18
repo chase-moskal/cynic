@@ -1,6 +1,6 @@
 
-export type Tests = (
+export type Suite = (
 	boolean
-	| (() => Promise<Tests>)
-	| {[key: string]: Tests}
+	| (() => Promise<Suite>)
+	| {[key: string]: Suite}
 )

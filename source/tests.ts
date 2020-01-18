@@ -1,10 +1,10 @@
 
+import {Suite} from "./interfaces.js"
 import {run} from "./internals/run.js"
-import {Tests} from "./interfaces.js"
 import {render} from "./internals/render.js"
 
-export async function suite(label: string, tests: Tests) {
-	const {results, stats} = await run(tests)
+export async function tests(label: string, suite: Suite) {
+	const {results, stats} = await run(suite)
 	const report = render({label, results, stats})
 	return {...stats, report}
 }

@@ -1,6 +1,6 @@
 
-import {Tests} from "../interfaces.js"
-import {asyncObjectMap} from "../toolbox/object-map.js"
+import {Suite} from "../interfaces.js"
+import {objectMapAsync} from "./toolbox/object-map-async.js"
 
 import {Results} from "./interfaces.js"
 import {
@@ -9,17 +9,17 @@ import {
 	s_counts,
 } from "./symbols.js"
 
-export async function test(tests: Tests): Promise<Results> {
-	if (typeof tests === "boolean") {
+export async function execute(suite: Suite): Promise<Results> {
+	if (typeof suite === "boolean") {
 		return {
-			[s_pass]: tests,
+			[s_pass]: suite,
 			[s_error]: null,
 			[s_counts]: true,
 		}
 	}
-	else if (typeof tests === "function") {
+	else if (typeof suite === "function") {
 		try {
-			const result = await tests()
+			const result = await suite()
 			return {
 				[s_pass]: !!result,
 				[s_error]: null,
@@ -34,10 +34,10 @@ export async function test(tests: Tests): Promise<Results> {
 			}
 		}
 	}
-	else if (typeof tests === "object") {
+	else if (typeof suite === "object") {
 		let all = true
-		const results = await asyncObjectMap(tests, async value => {
-			const r = await test(value)
+		const results = await objectMapAsync(suite, async value => {
+			const r = await execute(value)
 			if (!r[s_pass]) all = false
 			return r
 		})

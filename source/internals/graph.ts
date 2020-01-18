@@ -1,6 +1,6 @@
 
-import {repeat} from "../toolbox/repeat.js"
 import {Results} from "./interfaces.js"
+import {repeat} from "./toolbox/repeat.js"
 
 import {
 	s_pass,

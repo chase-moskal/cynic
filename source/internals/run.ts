@@ -1,11 +1,11 @@
 
-import {Tests} from "../interfaces.js"
-import {test} from "./test.js"
+import {Suite} from "../interfaces.js"
+import {execute} from "./execute.js"
 import {summary} from "./summary.js"
 
-export async function run(tests: Tests) {
+export async function run(tests: Suite) {
 	const start = Date.now()
-	const results = await test(tests)
+	const results = await execute(tests)
 	const duration = Date.now() - start
 	const stats = {...summary(results), duration}
 	return {results, stats}
