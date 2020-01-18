@@ -24,7 +24,9 @@
 		"cjs-package": "echo '{\"type\": \"commonjs\"}' > dist-cjs/package.json",
 		"watch": "npm run compile-esm -s -- --watch & npm run compile-cjs -s -- --watch",
 		"start": "serve",
-		"test": "node dist/internals/tests/cynic-node.test.js"
+		"test": "run-p test-node test-puppeteer",
+		"test-node": "node dist/internals/tests/run-node.test.js",
+		"test-puppeteer": "node dist-cjs/internals/tests/run-puppeteer.test.js"
 	},
 	"keywords": [],
 	"repository": {
@@ -37,11 +39,16 @@
 	"homepage": "https://github.com/chase-moskal/cynic#readme",
 	"devDependencies": {
 		"@types/node": "^13.1.8",
+		"@types/puppeteer": "^2.0.0",
+		"@types/serve-handler": "^6.1.0",
 		"mkdirp": "^0.5.1",
 		"npm-run-all": "^4.1.5",
 		"rimraf": "^3.0.0",
 		"serve": "^11.3.0",
 		"typescript": "^3.7.4"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"puppeteer": "^2.0.0",
+		"serve-handler": "^6.1.2"
+	}
 }

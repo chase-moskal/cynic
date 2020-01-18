@@ -13,11 +13,16 @@ export function graph(results1: Results) {
 	function recursive(results2: Results, depth: number = 1) {
 		if (typeof results2[s_pass] !== "boolean") throw new Error(`invalid test result`)
 		for (const [label, results3] of Object.entries(results2)) {
+			const errorLeadNewline = output.length > 1
+				? output[output.length - 1] === "\n"
+					? ""
+					: "\n"
+				: ""
 
 			// ✔ ✘ ✓ ✗ · ▽ ☰ ○ ▤ ▢
 			const group = "▽ "
 			const indent = (results3[s_counts] && !results3[s_pass])
-				? "\n" + repeat("═", (depth * 2) - 1) + " "
+				? errorLeadNewline + repeat("═", (depth * 2) - 1) + " "
 				: repeat(" ", depth * 2)
 			const icon = results3[s_pass]
 				? results3[s_counts] ? "✓ " : group

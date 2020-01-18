@@ -1,12 +1,9 @@
 
-import {test} from "../../cynic.js"
-import {suite} from "./cynic.test.js"
+import {test} from "./test.js"
+import {Suite} from "./interfaces.js"
 
-;(async() => {
-	const {report, failed} = await test("cynic node tests", suite)
-
-	console.log(report)
-	console.log(failed === 0 ? "*PASSING*" : "*FAILING*")
+export async function runBrowser(label: string, suite: Suite) {
+	const {report, failed} = await test(label, suite)
 
 	const pre = document.createElement("pre")
 	pre.className = "report"
@@ -18,4 +15,4 @@ import {suite} from "./cynic.test.js"
 		pre2.className = "failed"
 		document.body.appendChild(pre2)
 	}
-})()
+}
