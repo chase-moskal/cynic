@@ -17,13 +17,14 @@
 		"dist-cjs"
 	],
 	"scripts": {
-		"prepare": "run-s clean && run-p compile-esm compile-cjs && run-s test",
+		"prepare": "run-s clean && run-p compile-esm compile-cjs cjs-package && run-s test",
 		"clean": "rimraf dist dist-cjs && mkdirp dist dist-cjs",
 		"compile-esm": "tsc",
 		"compile-cjs": "tsc --module commonjs --outDir dist-cjs",
+		"cjs-package": "echo '{\"type\": \"commonjs\"}' > dist-cjs/package.json",
 		"watch": "npm run compile-esm -s -- --watch & npm run compile-cjs -s -- --watch",
 		"start": "serve",
-		"test": "exit 0"
+		"test": "node dist/internals/example.js"
 	},
 	"keywords": [],
 	"repository": {
