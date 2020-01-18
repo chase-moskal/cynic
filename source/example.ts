@@ -24,11 +24,20 @@ const tests: Tests = {
 		"encrypt/decrypt": true,
 	},
 	"json rpc": {
-		"renraku works from node": true,
+		"renraku works from node": async() => {
+			return new Promise((resolve, reject) => {
+				setTimeout(resolve, 10)
+			})
+		},
 		"renraku works in browser": true,
 	},
 }
 
 ;(async() => {
-	console.log(await suite("My example test suite", tests))
+
+	const {report, ...stats} = await suite(
+		"My example test suite!",
+		tests
+	)
+
 })()
