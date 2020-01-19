@@ -1,20 +1,35 @@
 {
-    "editor.tabSize": 4,
-    "editor.insertSpaces": true,
-    "search.exclude": {
-        "coverage": true,
-        "node_modules": true,
-        "typings": true,
-        "**/*.js": true,
-        "**/*.map": true,
-        "**/*.d.ts": true
-    },
-    "files.exclude": {
-        "coverage": true,
-        "node_modules": true,
-        "typings": true,
-        "**/*.js": true,
-        "**/*.map": true,
-        "**/*.d.ts": true
-    }
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+
+	"files.eol": "\n",
+	"files.encoding": "utf8",
+	"files.insertFinalNewline": true,
+
+	"typescript.tsdk": "node_modules/typescript/lib/",
+
+	"files.exclude": {
+		"dist": false,
+		"*.log*": true,
+		"coverage": true,
+		"node_modules": true,
+		"package-lock.json": true
+	},
+
+	"search.exclude": {
+		"dist": true
+	},
+
+	"files.watcherExclude": {
+		"dist/**": true,
+		"source-a*/**": true,
+		"**/.git/objects/**": true,
+		"**/.git/subtree-cache/**": true,
+		"**/node_modules/*/**": true,
+	},
+
+	"[markdown]": {
+		"editor.tabSize": 2,
+		"editor.insertSpaces": true
+	}
 }
