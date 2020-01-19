@@ -5,7 +5,9 @@
 
 - tests are just async functions, return booleans to pass or fail
 - run in node, browser, puppeteer, or elsewhere
-- no goofy assertion library: just return results or throw errors
+- es modules and commonjs are both supported
+- no goofy assertion library: just return results or throw strings
+- examples here are in typescript, but you can go vanilla js
 
 ## get cynical and make a test suite
 
@@ -89,15 +91,19 @@
       // emit the report text to console
       console.log(report)
 
-      // programmatically handle test suite success
-      if (stats.failed === 0) {
-        console.log(`success! all ${stats.total} tests passed!`)
-      }
+      // handle results programmatically
+      if (stats.failed === 0) console.log("done")
+      else console.log("failed!")
 
-      // handle test suite failure
-      else {
-        console.log(`failed! ${stats.failed} of ${stats.total} tests failed`)
-      }
+      // example of the stats you get
+      console.log(stats)
+       //> {
+       //>   total: 7,
+       //>   failed: 2,
+       //>   duration: 16, // milliseconds
+       //>   errors: ["expected result to be 6"],
+       //> }
+
     })()
     ```
 
@@ -145,7 +151,7 @@
     0.00 seconds
     ```
 
-- report where one test failed by throwing an error
+- report where one test failed by throwing an error (includes stack trace)
 
     ```
     example suite
@@ -155,6 +161,10 @@
     
     ═══ ✘ can sum three numbers
     ――――― Error: unable to process numbers
+           at can sum three numbers (.../cynic.test.js:4:15)
+           at execute (.../execute.js:13:34)
+           at test (.../test.js:4:38)
+           at runNode (.../run-node.js:3:38)
     
       ▽ bravo system
         ✓ can subtract numbers
@@ -166,3 +176,75 @@
     4 total tests
     0.00 seconds
     ```
+
+- report where one test failed, by throwing a *string* (not an error, no stack trace)
+
+    ```
+    example suite
+    
+      ▽ alpha system
+        ✓ can sum two numbers
+    
+    ═══ ✘ can sum three numbers
+    ――――― expected the result to be 6
+    
+      ▽ bravo system
+        ✓ can subtract numbers
+        ✓ can multiply numbers
+    
+    1 failed tests
+    1 thrown errors
+    3 passed tests
+    4 total tests
+    0.00 seconds
+    ```
+
+## hot tips
+
+- use objects to group tests
+
+    ```js
+    export default <Suite>{
+      "nested tests": {
+        "more nested": {
+          "exceedingly nested": {
+            "loltest": async() => true
+          }
+        }
+      }
+    }
+    ```
+
+- just throw strings as your assertions
+
+    ```js
+    "assertions and expectations": async() => {
+      const mystring = "abc"
+
+      // the "spartan's assertion"
+      if (!mystring.includes("b"))
+        throw `expected mystring to include "b"`
+    },
+    ```
+
+- or make your own little assertion function/library
+
+    ```js
+    // simple assert function definition
+    function assert(
+      condition: boolean,
+      fail: string | Error = "failed assert"
+    ) {
+      if (!condition) throw fail
+    }
+
+    // using assert
+    assert(mystring.includes("b"), "expected mystring to include 'b'")
+    ```
+
+- you might return your suite from an async function to do some setup
+
+## food for thought
+
+- maybe instead of using throw's as assertions, we should make a special channel for it -- some way to display all failed assertions instead only of the first.. hmmph
+- 🥃 chase moskal made this with open source love. please contribute!
