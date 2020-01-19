@@ -1,7 +1,7 @@
 
 import {Suite, test} from "../../cynic.js"
 
-export const suite: Suite = {
+export default <Suite>{
 
 	"test suite passes with zero failing tests": async() => {
 		const {report, ...stats} = await test("example suite", {

@@ -1,5 +1,5 @@
 
-import {Stats} from "./interfaces.js"
+import {Stats} from "../interfaces.js"
 
 export function conclude({total, failed, errors, duration}: Stats) {
 	let output = ""

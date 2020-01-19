@@ -1,7 +1,7 @@
 
-import {launch} from "puppeteer"
-const http = require("http")
-const handler = require("serve-handler")
+import * as http from "http"
+import puppeteer from "puppeteer"
+import handler from "serve-handler"
 
 export async function runPuppeteer({port, url}: {
 	port: number
@@ -10,7 +10,7 @@ export async function runPuppeteer({port, url}: {
 	const server = http.createServer(handler)
 	server.listen(port)
 
-	const browser = await launch()
+	const browser = await puppeteer.launch()
 	const page = await browser.newPage()
 	await page.goto(url)
 	await page.waitFor(".report")

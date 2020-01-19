@@ -11,10 +11,3 @@ export interface Results {
 	[s_counts]: boolean
 	[key: string]: Results
 }
-
-export interface Stats {
-	total: number
-	failed: number
-	errors: Error[]
-	duration: number
-}
