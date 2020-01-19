@@ -115,7 +115,7 @@
 - report of successful run (all tests returned true)
 
     ```
-    my example test suite
+    example suite
     
       ▽ alpha system
         ✓ can sum two numbers
