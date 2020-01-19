@@ -57,7 +57,7 @@
     ```js
     import suite from "./cool.test.js"
     import {runNode} from "cynic/dist/run-node.js"
-    runNode("my example test suite (node)", suite)
+    runNode("example suite, node", suite)
     ```
 
 - browser
@@ -65,10 +65,10 @@
     ```js
     import suite from "./cool.test.js"
     import {runBrowser} from "cynic/dist/run-browser.js"
-    runBrowser("my example test suite (browser)", suite)
+    runBrowser("example suite, browser", suite)
     ```
 
-- puppeteer
+- puppeteer (connects to the above browser page)
 
     ```js
     import {runPuppeteer} from "cynic/dist/run-puppeteer.js"
@@ -84,6 +84,7 @@
     import {test} from "cynic"
     import suite from "./cool.test.js"
     ;(async() => {
+      const label = "example suite"
 
       // run the test suite
       const {report, ...stats} = await test(label, suite)
@@ -201,7 +202,7 @@
 
 ## hot tips
 
-- use objects to group tests
+- use objects to group and nest your tests
 
     ```js
     export default <Suite>{
@@ -224,10 +225,12 @@
       // the "spartan's assertion"
       if (!mystring.includes("b"))
         throw `expected mystring to include "b"`
+
+      return true
     },
     ```
 
-- or make your own little assertion function/library
+- or even make your own little assertion function/library
 
     ```js
     // simple assert function definition
@@ -242,9 +245,10 @@
     assert(mystring.includes("b"), "expected mystring to include 'b'")
     ```
 
-- you might return your suite from an async function to do some setup
+- you might want to return your suite from an async function to do some setup
 
 ## food for thought
 
 - maybe instead of using throw's as assertions, we should make a special channel for it -- some way to display all failed assertions instead only of the first.. hmmph
+
 - 🥃 chase moskal made this with open source love. please contribute!
