@@ -26,7 +26,7 @@
 		"start": "serve",
 		"test": "run-p test-node test-puppeteer",
 		"test-node": "node dist/internals/tests/run-node.test.js",
-		"test-puppeteer": "node dist-cjs/internals/tests/run-puppeteer.test.js"
+		"test-puppeteer": "node dist/internals/tests/run-puppeteer.test.js"
 	},
 	"keywords": [],
 	"repository": {

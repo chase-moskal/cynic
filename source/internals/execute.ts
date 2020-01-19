@@ -48,5 +48,5 @@ export async function execute(suite: Suite): Promise<Results> {
 			[s_counts]: false,
 		}
 	}
-	else throw new Error(`invalid test type`)
+	else throw new Error("invalid suite item")
 }

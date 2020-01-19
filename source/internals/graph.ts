@@ -27,9 +27,21 @@ export function graph(results1: Results) {
 			const icon = results3[s_pass]
 				? results3[s_counts] ? "✓ " : group
 				: results3[s_counts] ? "✘ " : group
-			const errorMessage = results3[s_error]
-				? `\n${repeat("―", depth * 2)}― ${results3[s_error].name}: ${results3[s_error].message}`
-				: ""
+
+			let errorMessage = ""
+			const thrown = results3[s_error]
+			if (thrown !== undefined && thrown !== null) {
+				if (typeof thrown === "string") {
+					errorMessage = `\n${repeat("―", depth * 2)}― ${thrown}`
+				}
+				else if (thrown.stack) {
+					const stack = thrown.stack.replace(/\n/g, `\n${repeat(" ", (depth * 2) - 1)}`)
+					errorMessage = `\n${repeat("―", depth * 2)}― ${stack}`
+				}
+				else {
+					errorMessage = `\n${repeat("―", depth * 2)}― *unknown throw type*`
+				}
+			}
 
 			output += `\n${indent}${icon}${label}${errorMessage}`
 			output += (results3[s_counts] && !results3[s_pass]) ? "\n" : ""
