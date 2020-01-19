@@ -1,7 +1,7 @@
 {
 	"name": "cynic",
 	"version": "0.1.0-dev.0",
-	"description": "dead-simple run-everywhere async testing framework",
+	"description": "dead-simple async run-anywhere js testing framework",
 	"license": "ISC",
 	"author": "Chase Moskal <chasemoskal@gmail.com",
 	"type": "module",
@@ -28,7 +28,18 @@
 		"test-node": "node dist/internals/tests/run-node.test.js",
 		"test-puppeteer": "node dist/internals/tests/run-puppeteer.test.js"
 	},
-	"keywords": [],
+	"keywords": [
+		"test",
+		"tests",
+		"testing",
+		"testing-framework",
+		"test-framework",
+		"test-runner",
+		"node",
+		"browser",
+		"puppeteer",
+		"typescript"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/chase-moskal/cynic.git"
