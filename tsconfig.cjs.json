@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"rootDir": "source",
+		"outDir": "dist-cjs",
+		"target": "esnext",
+		"lib": ["esnext", "dom"],
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"noImplicitAny": true,
+		"sourceMap": true,
+		"declaration": true
+	},
+	"include": [
+		"source/**/*"
+	],
+	"exclude": [
+		"source/cli.ts"
+	]
+}

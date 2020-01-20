@@ -1,5 +1,5 @@
 
-import {Suite, test} from "../../cynic.js"
+import {Suite, test} from "../cynic.js"
 
 export default <Suite>{
 

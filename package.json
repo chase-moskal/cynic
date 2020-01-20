@@ -1,6 +1,6 @@
 {
 	"name": "cynic",
-	"version": "0.1.0-dev.0",
+	"version": "0.1.0-dev.1",
 	"description": "dead-simple async run-anywhere js testing framework",
 	"license": "ISC",
 	"author": "Chase Moskal <chasemoskal@gmail.com",
@@ -16,17 +16,20 @@
 		"source",
 		"dist-cjs"
 	],
+	"bin": {
+		"cynic": "dist/cli.js"
+	},
 	"scripts": {
 		"prepare": "run-s clean && run-p compile-esm compile-cjs cjs-package && run-s test",
 		"clean": "rimraf dist dist-cjs && mkdirp dist dist-cjs",
 		"compile-esm": "tsc",
-		"compile-cjs": "tsc --module commonjs --outDir dist-cjs",
+		"compile-cjs": "tsc -p tsconfig.cjs.json",
 		"cjs-package": "echo '{\"type\": \"commonjs\"}' > dist-cjs/package.json",
 		"watch": "npm run compile-esm -s -- --watch & npm run compile-cjs -s -- --watch",
 		"start": "serve",
 		"test": "run-p test-node test-puppeteer",
-		"test-node": "node dist/internals/tests/run-node.test.js",
-		"test-puppeteer": "node dist/internals/tests/run-puppeteer.test.js"
+		"test-node": "node ./dist/cli.js node --label='cynic self-testing suite (node)' ./dist/internals/cynic.test.js",
+		"test-puppeteer": "node ./dist/cli.js puppeteer --label='cynic self-testing suite (puppeteer)' --cynic-path=./ ./dist/internals/cynic.test.js"
 	},
 	"keywords": [
 		"test",
@@ -59,6 +62,8 @@
 		"typescript": "^3.7.4"
 	},
 	"dependencies": {
+		"commander": "^4.1.0",
+		"open": "^7.0.0",
 		"puppeteer": "^2.0.0",
 		"serve-handler": "^6.1.2"
 	}
