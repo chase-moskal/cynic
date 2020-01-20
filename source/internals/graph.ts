@@ -1,5 +1,5 @@
 
-import {Results} from "./interfaces.js"
+import {Results} from "./internal-interfaces.js"
 import {repeat} from "./toolbox/repeat.js"
 
 import {

@@ -2,7 +2,7 @@
 import {Suite} from "../interfaces.js"
 import {objectMapAsync} from "./toolbox/object-map-async.js"
 
-import {Results} from "./interfaces.js"
+import {Results} from "./internal-interfaces.js"
 import {
 	s_pass,
 	s_error,
@@ -20,10 +20,15 @@ export async function execute(suite: Suite): Promise<Results> {
 	else if (typeof suite === "function") {
 		try {
 			const result = await suite()
-			return {
-				[s_pass]: !!result,
-				[s_error]: null,
-				[s_counts]: true,
+			if (typeof result === "boolean") {
+				return {
+					[s_pass]: result,
+					[s_error]: null,
+					[s_counts]: true,
+				}
+			}
+			else if (result && typeof result === "object") {
+				return await execute(result)
 			}
 		}
 		catch (err) {

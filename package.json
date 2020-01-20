@@ -1,6 +1,6 @@
 {
 	"name": "cynic",
-	"version": "0.1.0-dev.1",
+	"version": "0.1.0-dev.2",
 	"description": "dead-simple async run-anywhere js testing framework",
 	"license": "ISC",
 	"author": "Chase Moskal <chasemoskal@gmail.com",
