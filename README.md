@@ -19,7 +19,7 @@
 
 2. define a test suite, like `cool.test.ts`
 
-    ```js
+    ```ts
     import {Suite} from "cynic"
     export default <Suite>{
       "alpha system": {
@@ -50,65 +50,67 @@
     }
     ```
 
-## execute your cynical test suite anywhere
+cynic's test suites are recursive
 
-- node
+the async functions are tests
 
-    ```js
-    import suite from "./cool.test.js"
-    import {runNode} from "cynic/dist/run-node.js"
-    runNode("example suite, node", suite)
-    ```
+objects can be nested to organize more and more tests
 
-- browser
+async functions can return another suite of tests
 
-    ```js
-    import suite from "./cool.test.js"
-    import {runBrowser} from "cynic/dist/run-browser.js"
-    runBrowser("example suite, browser", suite)
-    ```
+## execute in node, browser, puppeteer, or anywhere else
 
-- puppeteer (connects to the above browser page)
+### use the cynic command line tool
 
-    ```js
-    import {runPuppeteer} from "cynic/dist/run-puppeteer.js"
-    runPuppeteer({
-      port: 8021,
-      url: `http://localhost:8021/`
-    })
-    ```
+```sh
+# run your tests in node
+cynic node cool.test.js
 
-- anywhere that you can execute es modules or commonjs
+# run your tests in browser
+cynic browser cool.test.js
 
-    ```js
-    import {test} from "cynic"
-    import suite from "./cool.test.js"
-    ;(async() => {
-      const label = "example suite"
+# run your tests in puppeteer (headless browser)
+cynic puppeteer cool.test.js
+```
 
-      // run the test suite
-      const {report, ...stats} = await test(label, suite)
+optional arguments
+- relevant to *all* environments
+  - `--label="test suite"` — the report title
+- relevant to *browser* and puppeteer *environments*
+  - `--open=false` — true to prompt open your default browser
+  - `--port=8021` — run the server on a different port
+  - `--origin="http://localhost:8021"` — connect to the server via an alternative url (mind the port number!)
+  - `--cynic-path=./node_modules/cynic` — use an alternative path to the cynic library's root
 
-      // emit the report text to console
-      console.log(report)
+if puppeteer isn't running properly, see puppeteer's [troubleshooting.md](https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md)
 
-      // handle results programmatically
-      if (stats.failed === 0) console.log("done")
-      else console.log("failed!")
+### or just execute your test suite manually
 
-      // example of the stats you get
-      console.log(stats)
-       //> {
-       //>   total: 7,
-       //>   failed: 2,
-       //>   duration: 16, // milliseconds
-       //>   errors: ["expected result to be 6"],
-       //> }
+should anywhere you can execute es modules or commonjs
 
-    })()
-    ```
+```ts
+import {test} from "cynic"
+import suite from "./cool.test.js"
+;(async() => {
+  const label = "example suite"
 
-    see which stats are available in the `Stats` interface in [interfaces.ts](./source/interfaces.ts)
+  // run the test suite
+  const {report, ...stats} = await test(label, suite)
+
+  // emit the report text to console
+  console.log(report)
+
+  // handle results programmatically
+  if (stats.failed === 0) console.log("done")
+  else console.log("failed!")
+
+  // returns stats about the test run results
+  console.log(stats)
+
+})()
+```
+
+see which stats are available in the `Stats` interface in [interfaces.ts](./source/interfaces.ts)
 
 ## so what do the console reports look like?
 
@@ -204,7 +206,7 @@
 
 - use objects to group and nest your tests
 
-    ```js
+    ```ts
     export default <Suite>{
       "nested tests": {
         "more nested": {
@@ -218,7 +220,7 @@
 
 - just throw strings as your assertions
 
-    ```js
+    ```ts
     "assertions and expectations": async() => {
       const mystring = "abc"
 
@@ -232,7 +234,7 @@
 
 - or even make your own little assertion function/library
 
-    ```js
+    ```ts
     // simple assert function definition
     function assert(
       condition: boolean,
@@ -245,10 +247,23 @@
     assert(mystring.includes("b"), "expected mystring to include 'b'")
     ```
 
-- you might want to return your suite from an async function to do some setup
+- a suite can be an async function that returns another suite — making for a great way to set up a test suite
+
+    ```ts
+    export default <Suite>(async() => {
+      const myFile = loadFile("myfile.json")
+      return {
+        "group of tests": {
+          "my file exists": async() => {
+            return !!myFile
+          }
+        }
+      }
+    })
+    ```
 
 ## food for thought
 
-- maybe instead of using throw's as assertions, we should make a special channel for it -- some way to display all failed assertions instead only of the first.. hmmph
+- maybe instead of using throw's as assertions, we should make a special channel for it — some way to display all failed assertions together (instead only of the first)..? hmmph
 
 - 🥃 chase moskal made this with open source love. please contribute!
