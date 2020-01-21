@@ -22,7 +22,7 @@ commander
 	.option("-o, --open <boolean>", "open the browser automatically", "false")
 	.option("-p, --port <number>", "port to run puppeteer", "8021")
 	.option("-O, --origin <string>", "url origin to test suite page", "http://localhost:8021")
-	.option("-c, --cynic-path <string>", "path to cynic library root", "./node_modules/cynic")
+	.option("-c, --cynic-path <string>", "path to cynic library root", "node_modules/cynic")
 	.parse(process.argv)
 
 ;(async() => {

@@ -1,13 +1,13 @@
 
 # 🧐 cynic
 
-*dead-simple async run-anywhere js testing framework*
+*simple async run-anywhere js testing framework*
 
-- tests are just async functions, return booleans to pass or fail
 - run in node, browser, puppeteer, or elsewhere
+- tests are just async functions, return booleans to pass or fail
 - es modules and commonjs are both supported
-- no goofy assertion library: just return results or throw strings
-- examples here are in typescript, but you can go vanilla js
+- no goofy assertion library: pure javascript, just return results or throw strings
+- the examples here are in typescript, but of course you can go vanilla js
 
 ## get cynical and make a test suite
 
@@ -56,7 +56,7 @@ the async functions are tests
 
 objects can be nested to organize more and more tests
 
-async functions can return another suite of tests
+async functions can return yet another suite of tests
 
 ## execute in node, browser, puppeteer, or anywhere else
 
@@ -80,7 +80,7 @@ optional arguments
   - `--open=false` — true to prompt open your default browser
   - `--port=8021` — run the server on a different port
   - `--origin="http://localhost:8021"` — connect to the server via an alternative url (mind the port number!)
-  - `--cynic-path=./node_modules/cynic` — use an alternative path to the cynic library's root
+  - `--cynic-path=node_modules/cynic` — use an alternative path to the cynic library's root
 
 if puppeteer isn't running properly, see puppeteer's [troubleshooting.md](https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md)
 
@@ -92,10 +92,9 @@ should anywhere you can execute es modules or commonjs
 import {test} from "cynic"
 import suite from "./cool.test.js"
 ;(async() => {
-  const label = "example suite"
 
   // run the test suite
-  const {report, ...stats} = await test(label, suite)
+  const {report, ...stats} = await test("example suite", suite)
 
   // emit the report text to console
   console.log(report)

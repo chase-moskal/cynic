@@ -45,9 +45,9 @@ const makeTestingPage = ({suitePath, label, cynicPath}: {
 			<script async defer type="module">
 
 				import {runBrowser}
-					from "${cynicPath}/dist/internals/runners/run-browser.js"
+					from "./${cynicPath}/dist/internals/runners/run-browser.js"
 
-				import suite from "${suitePath}"
+				import suite from "./${suitePath}"
 
 				runBrowser(${JSON.stringify(label)}, suite)
 
