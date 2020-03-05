@@ -5,8 +5,8 @@
 
 - run in node, browser, puppeteer, or anywhere
 - test suites are nested async functions
-- es modules and commonjs are both supported
 - all examples here are typescript, but of course you can go vanilla js
+- es modules only
 
 ## get cynical and make a test suite
 
@@ -81,11 +81,12 @@
 
 - ### **or just execute your test suite manually**
 
-    should work anywhere you can execute es modules or commonjs
+    should work anywhere you can execute es modules
 
     ```ts
     import {test} from "cynic"
     import suite from "./cool.test.js"
+
     ;(async() => {
 
       // run the test suite
