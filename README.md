@@ -300,7 +300,11 @@
 
     ```ts
     export default <Suite>(async() => {
-      const myFile = loadFile("myfile.json")
+
+      // doing some async setup
+      const myFile = await loadFile("myfile.json")
+
+      // returning more tests
       return {
         "group of tests": {
           "my file exists": async() => {
@@ -312,7 +316,5 @@
     ```
 
 ## food for thought
-
-- it would be nice if we could display all errors instead of only the first one..
 
 - 🥃 chase moskal made this with open source love. please contribute!
