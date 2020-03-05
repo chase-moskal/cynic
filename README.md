@@ -68,10 +68,12 @@
     cynic puppeteer cool.test.js
     ```
 
-    optional arguments for *all* environments
+    cynic executes the default export as a test suite
+
+    optional arguments for *all* environments:
     - `--label="test suite"` — the report title
 
-    optional arguments for *browser* and *puppeteer* environments
+    optional arguments for *browser* and *puppeteer* environments:
     - `--open=false` — true to prompt open your default browser
     - `--port=8021` — run the server on a different port
     - `--origin="http://localhost:8021"` — connect to the server via an alternative url (mind the port number!)
