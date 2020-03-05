@@ -1,10 +1,5 @@
 
-export interface FnMock {
-	calls: {
-		args: any[]
-		returned: any
-	}[]
-}
+import {FnMock} from "./interfaces.js"
 
 export function fn<F extends (...args: any[]) => any>(
 	actual = <F>(() => {})
@@ -16,10 +11,4 @@ export function fn<F extends (...args: any[]) => any>(
 	}
 	funny.mock = <FnMock>{calls: []}
 	return <F & {mock: FnMock}>funny
-}
-
-export function defined(x: any) {
-	return (x !== undefined && x !== null)
-		? true
-		: false
 }

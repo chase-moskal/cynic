@@ -11,3 +11,10 @@ export interface Stats {
 	errors: Error[]
 	duration: number
 }
+
+export interface FnMock {
+	calls: {
+		args: any[]
+		returned: any
+	}[]
+}

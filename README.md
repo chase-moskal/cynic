@@ -3,11 +3,10 @@
 
 *simple async run-anywhere js testing framework*
 
-- run in node, browser, puppeteer, or elsewhere
-- tests are just async functions, return booleans to pass or fail
+- run in node, browser, puppeteer, or anywhere
+- test suites are nested async functions
 - es modules and commonjs are both supported
-- no goofy assertion library: pure javascript, just return results or throw strings
-- the examples here are in typescript, but of course you can go vanilla js
+- all examples here are typescript, but of course you can go vanilla js
 
 ## get cynical and make a test suite
 
@@ -20,192 +19,219 @@
 2. define a test suite, like `cool.test.ts`
 
     ```ts
-    import {Suite} from "cynic"
+    import {Suite, assert, expect} from "cynic"
+
     export default <Suite>{
       "alpha system": {
-        "can sum two numbers": async() => {
+        "can sum two numbers (boolean return)": async() => {
           const a = 1
           const b = 2
           return (a + b) === 3
         },
-        "can sum three numbers": async() => {
+        "can sum three numbers (assert)": async() => {
           const a = 1
           const b = 2
           const c = 3
-          return (a + b + c) === 6
+          return assert((a + b + c) === 6, `sum is wrong`)
         }
       },
       "bravo system": {
-        "can subtract numbers": async() => {
-          const a = 3
-          const b = 1
-          return (a - b) === 2
-        },
-        "can multiply numbers": async() => {
+        "can multiply numbers (expect)": async() => {
           const a = 2
           const b = 3
-          return (a * b) === 6
-        },
+          return (
+            expect(a * b).equals(6) &&
+            expect(a * b * a).equals(12)
+          )
+        }
       }
     }
     ```
 
-cynic's test suites are recursive
-
-the async functions are tests
-
-objects can be nested to organize more and more tests
-
-async functions can return yet another suite of tests
+    - cynic test suites are recursive
+    - the async functions are tests
+    - objects can be nested to organize more and more tests
+    - tests can return another test, or whole suite
 
 ## execute in node, browser, puppeteer, or anywhere else
 
-### use the cynic command line tool
+- ### **use the cynic command line tool**
 
-```sh
-# run your tests in node
-cynic node cool.test.js
+    ```sh
+    # run your tests in node
+    cynic node cool.test.js
 
-# run your tests in browser
-cynic browser cool.test.js
+    # run your tests in browser
+    cynic browser cool.test.js
 
-# run your tests in puppeteer (headless browser)
-cynic puppeteer cool.test.js
-```
+    # run your tests in puppeteer (headless browser)
+    cynic puppeteer cool.test.js
+    ```
 
-optional arguments
-- relevant to *all* environments
-  - `--label="test suite"` — the report title
-- relevant to *browser* and puppeteer *environments*
-  - `--open=false` — true to prompt open your default browser
-  - `--port=8021` — run the server on a different port
-  - `--origin="http://localhost:8021"` — connect to the server via an alternative url (mind the port number!)
-  - `--cynic-path=node_modules/cynic` — use an alternative path to the cynic library's root
+    optional arguments for *all* environments
+    - `--label="test suite"` — the report title
 
-if puppeteer isn't running properly, see puppeteer's [troubleshooting.md](https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md)
+    optional arguments for *browser* and *puppeteer* environments
+    - `--open=false` — true to prompt open your default browser
+    - `--port=8021` — run the server on a different port
+    - `--origin="http://localhost:8021"` — connect to the server via an alternative url (mind the port number!)
+    - `--cynic-path=node_modules/cynic` — use an alternative path to the cynic library's root
 
-### or just execute your test suite manually
+    if puppeteer isn't running properly, see puppeteer's [troubleshooting.md](https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md)
 
-should anywhere you can execute es modules or commonjs
+- ### **or just execute your test suite manually**
 
-```ts
-import {test} from "cynic"
-import suite from "./cool.test.js"
-;(async() => {
+    should work anywhere you can execute es modules or commonjs
 
-  // run the test suite
-  const {report, ...stats} = await test("example suite", suite)
+    ```ts
+    import {test} from "cynic"
+    import suite from "./cool.test.js"
+    ;(async() => {
 
-  // emit the report text to console
-  console.log(report)
+      // run the test suite
+      const {report, ...stats} = await test("example suite", suite)
 
-  // handle results programmatically
-  if (stats.failed === 0) console.log("done")
-  else console.log("failed!")
+      // emit the report text to console
+      console.log(report)
 
-  // returns stats about the test run results
-  console.log(stats)
+      // handle results programmatically
+      if (stats.failed === 0) console.log("done")
+      else console.log("failed!")
 
-})()
-```
+      // returns stats about the test run results
+      console.log(stats)
 
-see which stats are available in the `Stats` interface in [interfaces.ts](./source/interfaces.ts)
+    })()
+    ```
+
+    see which stats are available in the `Stats` interface in [interfaces.ts](./source/interfaces.ts)
 
 ## so what do the console reports look like?
 
-- report of successful run (all tests returned true)
+- **report: successful run**
 
     ```
-    example suite
+    cynic self-testing suite (node)
     
-      ▽ alpha system
-        ✓ can sum two numbers
-        ✓ can sum three numbers
-      ▽ bravo system
-        ✓ can subtract numbers
-        ✓ can multiply numbers
+      ▽ examples
+        ▽ alpha system
+          ✓ can sum two numbers (boolean return)
+          ✓ can sum three numbers (assertion)
+        ▽ bravo system
+          ✓ can multiply numbers (expectation)
     
     0 failed tests
     0 thrown errors
-    4 passed tests
-    4 total tests
+    3 passed tests
+    3 total tests
     0.00 seconds
     ```
 
-- report where one test had failed (returned false)
+- **report: a test returns false**  
+    a test which doesn't return true will simply display as failed
 
     ```
-    example suite
+    cynic self-testing suite (node)
     
-      ▽ alpha system
-        ✓ can sum two numbers
+      ▽ examples
+        ▽ alpha system
     
-    ═══ ✘ can sum three numbers
+    ═════ ✘ can sum two numbers (boolean return)
     
-      ▽ bravo system
-        ✓ can subtract numbers
-        ✓ can multiply numbers
+          ✓ can sum three numbers (assertion)
+        ▽ bravo system
+          ✓ can multiply numbers (expectation)
     
     1 failed tests
     0 thrown errors
-    3 passed tests
-    4 total tests
+    2 passed tests
+    3 total tests
     0.00 seconds
     ```
 
-- report where one test failed by throwing an error (includes stack trace)
+- **report: a test throws a string**  
+    a thrown string will be displayed as the failure reason
 
     ```
-    example suite
+    cynic self-testing suite (node)
     
-      ▽ alpha system
-        ✓ can sum two numbers
+      ▽ examples
+        ▽ alpha system
     
-    ═══ ✘ can sum three numbers
-    ――――― Error: unable to process numbers
-           at can sum three numbers (.../cynic.test.js:4:15)
-           at execute (.../execute.js:13:34)
-           at test (.../test.js:4:38)
-           at runNode (.../run-node.js:3:38)
+    ═════ ✘ can sum two numbers (boolean return)
+    ――――――― arithmetic failed for interesting reasons!
     
-      ▽ bravo system
-        ✓ can subtract numbers
-        ✓ can multiply numbers
+          ✓ can sum three numbers (assertion)
+        ▽ bravo system
+          ✓ can multiply numbers (expectation)
     
     1 failed tests
     1 thrown errors
-    3 passed tests
-    4 total tests
+    2 passed tests
+    3 total tests
     0.00 seconds
     ```
 
-- report where one test failed, by throwing a *string* (not an error, no stack trace)
+- **report: a test fails an assertion**  
+    you get the assert message, and a full stack trace
 
     ```
-    example suite
+    cynic self-testing suite (node)
     
-      ▽ alpha system
-        ✓ can sum two numbers
+      ▽ examples
+        ▽ alpha system
+          ✓ can sum two numbers (boolean return)
     
-    ═══ ✘ can sum three numbers
-    ――――― expected the result to be 6
+    ═════ ✘ can sum three numbers (assertion)
+    ――――――― CynicBrokenAssertion: sum is wrong
+              at assert (file:///work/cynic/dist/assert.js:7:15)
+              at can sum three numbers (assertion) (file:///work/cynic/dist/internals/example.test.js:13:20)
+              at execute (file:///work/cynic/dist/internals/execute.js:13:34)
+              [...]
     
-      ▽ bravo system
-        ✓ can subtract numbers
-        ✓ can multiply numbers
+        ▽ bravo system
+          ✓ can multiply numbers (expectation)
     
     1 failed tests
     1 thrown errors
-    3 passed tests
-    4 total tests
+    2 passed tests
+    3 total tests
+    0.00 seconds
+    ```
+
+- **report: a test fails an expectation**  
+    a message is generated for the failed expectation, and stack trace provided
+
+    ```
+    cynic self-testing suite (node)
+    
+      ▽ examples
+        ▽ alpha system
+          ✓ can sum two numbers (boolean return)
+          ✓ can sum three numbers (assertion)
+        ▽ bravo system
+    
+    ═════ ✘ can multiply numbers (expectation)
+    ――――――― CynicBrokenExpectation: expect(7).equals(6): not equal, should be
+              at composite (file:///work/cynic/dist/expect.js:46:19)
+              at Object.equals (file:///work/cynic/dist/expect.js:25:125)
+              at can multiply numbers (expectation) (file:///work/cynic/dist/internals/example.test.js:20:39)
+              at execute (file:///work/cynic/dist/internals/execute.js:13:34)
+              [...]
+    
+    1 failed tests
+    1 thrown errors
+    2 passed tests
+    3 total tests
     0.00 seconds
     ```
 
 ## hot tips
 
-- use objects to group and nest your tests
+- use object nesting to group and organize tests arbitrarily
 
     ```ts
+    import {Suite} from "cynic"
     export default <Suite>{
       "nested tests": {
         "more nested": {
@@ -217,36 +243,59 @@ see which stats are available in the `Stats` interface in [interfaces.ts](./sour
     }
     ```
 
-- just throw strings as your assertions
+- you can just throw strings as assertions
 
     ```ts
-    "assertions and expectations": async() => {
-      const mystring = "abc"
+    import {Suite} from "cynic"
+    export default <Suite>{
+      "assertions and expectations": async() => {
+        const mystring = "abc"
 
-      // the "spartan's assertion"
-      if (!mystring.includes("b"))
-        throw `expected mystring to include "b"`
+        // the "spartan assertion"
+        if (!mystring.includes("b"))
+          throw `expected mystring to include "b"`
 
-      return true
-    },
-    ```
-
-- or even make your own little assertion function/library
-
-    ```ts
-    // simple assert function definition
-    function assert(
-      condition: boolean,
-      fail: string | Error = "failed assert"
-    ) {
-      if (!condition) throw fail
+        return true
+      }
     }
-
-    // using assert
-    assert(mystring.includes("b"), "expected mystring to include 'b'")
     ```
 
-- a suite can be an async function that returns another suite — making for a great way to set up a test suite
+- or you can use the handy `assert` function to do that, you get stack traces
+
+    ```ts
+    import {Suite, assert} from "cynic"
+    export default <Suite>{
+      "using 'assert'": async() => {
+        const example = "abc"
+
+        assert(example === "abc",
+          `example must equal "abc"`)
+
+        assert(example.includes("b"),
+          `example should include "b"`)
+
+        // remember to return the asserts, or return true afterwards
+        return true
+      }
+    }
+    ```
+
+- or you can also use the experimental new `expect` api, you get auto-generated messages and stack traces
+
+    ```ts
+    import {Suite, expect} from "cynic"
+    export default <Suite>{
+      "using 'expect'": async() => {
+        const example = "abc"
+        return (
+          expect(example).defined() &&
+          expect(example).equals("abc")
+        )
+      }
+    }
+    ```
+
+- a suite or test can return another suite or test — *easy setups!*
 
     ```ts
     export default <Suite>(async() => {
@@ -263,6 +312,6 @@ see which stats are available in the `Stats` interface in [interfaces.ts](./sour
 
 ## food for thought
 
-- maybe instead of using throw's as assertions, we should make a special channel for it — some way to display all failed assertions together (instead only of the first)..? hmmph
+- it would be nice if we could display all errors instead of only the first one..
 
 - 🥃 chase moskal made this with open source love. please contribute!
