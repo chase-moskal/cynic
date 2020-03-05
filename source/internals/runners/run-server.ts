@@ -42,6 +42,12 @@ const makeTestingPage = ({suitePath, label, cynicPath}: {
 		<head>
 			<meta charset="utf-8"/>
 			<title>${escapeHtml(label)}</title>
+			<style>
+				html, body {
+					color: #89a76f;
+					background: #111;
+				}
+			</style>
 			<script async defer type="module">
 
 				import {runBrowser}

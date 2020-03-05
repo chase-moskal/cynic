@@ -22,6 +22,7 @@
 		"start": "serve",
 		"test": "run-p test-node",
 		"test-node": "node ./dist/cli.js node --label='cynic self-testing suite (node)' dist/internals/tests/cynic.test.js",
+		"test-browser": "node ./dist/cli.js browser --open=true --label='cynic self-testing suite (browser)' --cynic-path=. dist/internals/tests/cynic.test.js",
 		"test-puppeteer": "node ./dist/cli.js puppeteer --label='cynic self-testing suite (puppeteer)' --cynic-path=. dist/internals/tests/cynic.test.js"
 	},
 	"keywords": [

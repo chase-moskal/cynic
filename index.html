@@ -2,7 +2,17 @@
 <html>
 	<head>
 		<meta charset="utf-8"/>
-		<title>cynic browser self-test</title>
-		<script async defer type="module" src="dist/internals/tests/run-browser.test.js"></script>
+		<title>cynic self-testing suite (manual browser)</title>
+		<style>
+			html, body {
+				color: #89a76f;
+				background: #111;
+			}
+		</style>
+		<script async defer type="module">
+			import {runBrowser} from "./dist/internals/runners/run-browser.js"
+			import suite from "./dist/internals/tests/cynic.test.js"
+			runBrowser("cynic self-testing suite (manual browser)", suite)
+		</script>
 	</head>
 </html>
