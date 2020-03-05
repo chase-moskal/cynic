@@ -1,5 +1,5 @@
 
-import {Suite} from "../cynic.js"
+import {Suite} from "../../cynic.js"
 
 import testSuite from "./test.test.js"
 import examples from "./example.test.js"

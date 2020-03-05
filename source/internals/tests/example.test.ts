@@ -1,5 +1,5 @@
 
-import {Suite, expect, assert} from "../cynic.js"
+import {Suite, expect, assert} from "../../cynic.js"
 
 export default <Suite>{
 	"alpha system": {

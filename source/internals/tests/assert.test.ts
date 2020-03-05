@@ -1,5 +1,5 @@
 
-import {Suite, assert} from "../cynic.js"
+import {Suite, assert} from "../../cynic.js"
 import {throwsError} from "./testing.test.js"
 
 export default <Suite>{
