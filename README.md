@@ -1,12 +1,11 @@
 
 # 🧐 cynic
 
-*simple async run-anywhere js testing framework*
+*async testing framework for es-modules*
 
-- run in node, browser, puppeteer, or anywhere
-- test suites are nested async functions
+- test suites are arbitrarily nested async functions
+- run in node, browser, puppeteer — anywhere you can execute es modules
 - all examples here are typescript, but of course you can go vanilla js
-- es modules only
 
 ## get cynical and make a test suite
 
@@ -16,7 +15,7 @@
     npm install --save-dev cynic
     ```
 
-2. define a test suite, like `cool.test.ts`
+2. define a test suite, like `example.test.ts`
 
     ```ts
     import {Suite, assert, expect} from "cynic"
@@ -53,19 +52,19 @@
     - objects can be nested to organize more and more tests
     - tests can return another test, or whole suite
 
-## execute in node, browser, puppeteer, or anywhere else
+## execute in node, browser, or puppeteer
 
 - ### **use the cynic command line tool**
 
     ```sh
     # run your tests in node
-    cynic node cool.test.js
+    cynic node example.test.js
 
     # run your tests in browser
-    cynic browser cool.test.js
+    cynic browser example.test.js
 
     # run your tests in puppeteer (headless browser)
-    cynic puppeteer cool.test.js
+    cynic puppeteer example.test.js
     ```
 
     cynic executes the default export as a test suite
@@ -87,7 +86,7 @@
 
     ```ts
     import {test} from "cynic"
-    import suite from "./cool.test.js"
+    import suite from "./example.test.js"
 
     ;(async() => {
 
@@ -114,7 +113,7 @@
 - **report: successful run**
 
     ```
-    cynic self-testing suite (node)
+    cynic example suite
     
       ▽ examples
         ▽ alpha system
@@ -134,7 +133,7 @@
     a test which doesn't return true will simply display as failed
 
     ```
-    cynic self-testing suite (node)
+    cynic example suite
     
       ▽ examples
         ▽ alpha system
@@ -156,7 +155,7 @@
     a thrown string will be displayed as the failure reason
 
     ```
-    cynic self-testing suite (node)
+    cynic example suite
     
       ▽ examples
         ▽ alpha system
@@ -179,7 +178,7 @@
     you get the assert message, and a full stack trace
 
     ```
-    cynic self-testing suite (node)
+    cynic example suite
     
       ▽ examples
         ▽ alpha system
@@ -206,7 +205,7 @@
     a message is generated for the failed expectation, and stack trace provided
 
     ```
-    cynic self-testing suite (node)
+    cynic example suite
     
       ▽ examples
         ▽ alpha system
@@ -252,11 +251,11 @@
     import {Suite} from "cynic"
     export default <Suite>{
       "assertions and expectations": async() => {
-        const mystring = "abc"
+        const example = "abc"
 
         // the "spartan assertion"
-        if (!mystring.includes("b"))
-          throw `expected mystring to include "b"`
+        if (!example.includes("b"))
+          throw `expected example to include "b"`
 
         return true
       }
