@@ -23,6 +23,7 @@ commander
 	.option("-p, --port <number>", "port to run puppeteer", "8021")
 	.option("-O, --origin <string>", "url origin to test suite page", "http://localhost:8021")
 	.option("-c, --cynic-path <string>", "path to cynic library root", "node_modules/cynic")
+	.option("-i, --importmap-path <string>", "path to your own import map", undefined)
 	.parse(process.argv)
 
 ;(async() => {
@@ -32,6 +33,7 @@ commander
 		label,
 		origin,
 		cynicPath,
+		importmapPath,
 	} = commander
 	let [environment, suitePath] = commander.args
 
@@ -61,6 +63,7 @@ commander
 			label,
 			suitePath,
 			cynicPath,
+			importmapPath,
 		})
 		const url = `${origin}/${cynicTestFileName}`
 		console.log(`\n Test server running, see ${url}\n`)
@@ -73,6 +76,7 @@ commander
 			origin,
 			suitePath,
 			cynicPath,
+			importmapPath,
 			launchOptions: open
 				? {headless: false, devtools: true}
 				: {headless: true, devtools: false},

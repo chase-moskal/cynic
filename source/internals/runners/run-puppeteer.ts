@@ -9,6 +9,7 @@ export async function runPuppeteer({
 	origin,
 	suitePath,
 	cynicPath,
+	importmapPath,
 	launchOptions = {},
 }: {
 	port: number
@@ -16,6 +17,7 @@ export async function runPuppeteer({
 	origin: string
 	suitePath: string
 	cynicPath: string
+	importmapPath?: string
 	launchOptions?: puppeteer.LaunchOptions
 }) {
 	const server = runServer({
@@ -23,6 +25,7 @@ export async function runPuppeteer({
 		label,
 		suitePath,
 		cynicPath,
+		importmapPath,
 	})
 
 	const browser = await puppeteer.launch(launchOptions)

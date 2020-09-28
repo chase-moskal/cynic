@@ -77,6 +77,7 @@
     - `--port=8021` — run the server on a different port
     - `--origin="http://localhost:8021"` — connect to the server via an alternative url (mind the port number!)
     - `--cynic-path=node_modules/cynic` — use an alternative path to the cynic library's root
+    - `--importmap-path=./dist/importmap.json` — provide an import map for your test suites
 
     if puppeteer isn't running properly, see puppeteer's [troubleshooting.md](https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md)
 
