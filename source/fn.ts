@@ -1,5 +1,5 @@
 
-import {FnMock} from "./interfaces.js"
+import {FnMock} from "./types.js"
 
 export function fn<F extends (...args: any[]) => any>(
 	actual = <F>(() => {})

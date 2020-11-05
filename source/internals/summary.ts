@@ -1,5 +1,5 @@
 
-import {Results,} from "./internal-interfaces.js"
+import {Results,} from "./internal-types.js"
 
 import {
 	s_pass,

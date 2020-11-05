@@ -1,5 +1,5 @@
 
-import {Suite} from "./interfaces.js"
+import {Suite} from "./types.js"
 import {run} from "./internals/run.js"
 import {render} from "./internals/render.js"
 

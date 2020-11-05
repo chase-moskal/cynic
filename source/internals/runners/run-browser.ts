@@ -1,6 +1,6 @@
 
 import {test} from "../../test.js"
-import {Suite} from "../../interfaces.js"
+import {Suite} from "../../types.js"
 
 export async function runBrowser(label: string, suite: Suite) {
 	const {report, failed} = await test(label, suite)

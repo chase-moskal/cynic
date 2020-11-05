@@ -1,8 +1,8 @@
 
-import {Suite} from "../interfaces.js"
+import {Suite} from "../types.js"
 import {objectMapAsync} from "./toolbox/object-map-async.js"
 
-import {Results} from "./internal-interfaces.js"
+import {Results} from "./internal-types.js"
 import {
 	s_pass,
 	s_error,
