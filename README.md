@@ -145,7 +145,7 @@
         ▽ bravo system
           ✓ can multiply numbers (expectation)
     
-    1 failed tests
+    1 FAILED tests
     0 thrown errors
     2 passed tests
     3 total tests
@@ -168,7 +168,7 @@
         ▽ bravo system
           ✓ can multiply numbers (expectation)
     
-    1 failed tests
+    1 FAILED tests
     1 thrown errors
     2 passed tests
     3 total tests
@@ -195,7 +195,7 @@
         ▽ bravo system
           ✓ can multiply numbers (expectation)
     
-    1 failed tests
+    1 FAILED tests
     1 thrown errors
     2 passed tests
     3 total tests
@@ -222,7 +222,7 @@
               at execute (file:///work/cynic/dist/internals/execute.js:13:34)
               [...]
     
-    1 failed tests
+    1 FAILED tests
     1 thrown errors
     2 passed tests
     3 total tests

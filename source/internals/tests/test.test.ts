@@ -32,7 +32,7 @@ export default <Suite>{
 		return (
 			report &&
 			report.includes("example suite") &&
-			report.includes("1 failed tests") &&
+			report.includes("1 FAILED tests") &&
 			stats &&
 			stats.total === 3 &&
 			stats.failed === 1 &&
@@ -53,7 +53,7 @@ export default <Suite>{
 		return (
 			report &&
 			report.includes("example suite") &&
-			report.includes("1 failed tests") &&
+			report.includes("1 FAILED tests") &&
 			stats &&
 			stats.total === 3 &&
 			stats.failed === 1 &&
@@ -72,7 +72,7 @@ export default <Suite>{
 		return (
 			report &&
 			report.includes("example suite") &&
-			report.includes("1 failed tests") &&
+			report.includes("1 FAILED tests") &&
 			stats &&
 			stats.total === 3 &&
 			stats.failed === 1 &&
