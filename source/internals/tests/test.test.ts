@@ -61,7 +61,7 @@ export default <Suite>{
 		)
 	},
 
-	"tests returned by a test are tested": async() => {
+	"suites returned by a test are tested": async() => {
 		const {report, ...stats} = await test("example suite", async() => ({
 			"example one": true,
 			"example two": async() => true,
@@ -78,5 +78,16 @@ export default <Suite>{
 			stats.failed === 1 &&
 			stats.errors.length === 0
 		)
+	},
+
+	"test can pass by returning undefined or null": async() => {
+		const {report, ...stats} = await test("example suite", async() => ({
+			"example 1": async() => {},
+			"example 2": async() => undefined,
+			"example 3": async() => null,
+		}))
+		return report
+			&& stats.total === 3
+			&& stats.failed === 0
 	},
 }

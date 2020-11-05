@@ -30,6 +30,13 @@ export async function execute(suite: Suite): Promise<Results> {
 			else if (result && typeof result === "object") {
 				return await execute(result)
 			}
+			else {
+				return {
+					[s_pass]: true,
+					[s_error]: null,
+					[s_counts]: true,
+				}
+			}
 		}
 		catch (err) {
 			return {

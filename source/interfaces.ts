@@ -1,6 +1,7 @@
 
 export type Suite = (
-	boolean
+	void
+	| boolean
 	| (() => Promise<Suite>)
 	| {[key: string]: Suite}
 )
