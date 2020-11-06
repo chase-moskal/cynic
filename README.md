@@ -1,13 +1,15 @@
 
 # 🧐 cynic
 
-*async testing framework for es-modules*
+## async testing framework for es modules
 
-- test suites are arbitrarily nested async functions
-- run in node, browser, puppeteer — anywhere you can execute es modules
-- all examples here are typescript, but of course you can go vanilla js
+- cynic is designed to be dirt-simple, because i'm sick of overcomplicated testing frameworks
+- the test suites are just nested async functions
+- the whole framework is just simple es modules that run anywhere: node, browser, puppeteer, deno
+- no magic assumptions are made about or foisted onto the environment: the assertion library and everything else is just simply imported like from any other module
+- examples here are shown in typescript, but of course you can use vanilla js
 
-## get cynical and make a test suite
+## let's get cynical, and make a damn test suite!
 
 1. install cynic into your project
 
@@ -15,7 +17,7 @@
     npm install --save-dev cynic
     ```
 
-2. define a test suite, like `example.test.ts`
+2. write a test suite, `example.test.ts`
 
     ```ts
     import {Suite, assert, expect} from "cynic"
@@ -25,36 +27,37 @@
         "can sum two numbers (boolean return)": async() => {
           const a = 1
           const b = 2
+          // no assertion library required:
+          // simply returning false, or throwing, will fail a test
           return (a + b) === 3
         },
         "can sum three numbers (assert)": async() => {
           const a = 1
           const b = 2
           const c = 3
-          return assert((a + b + c) === 6, `sum is wrong`)
+          // benefits of 'assert'
+          //  - you get a stack trace
+          //  - you can provide a custom message for each failure
+          assert((a + b + c) === 6, `sum is wrong`)
         }
       },
       "bravo system": {
         "can multiply numbers (expect)": async() => {
           const a = 2
           const b = 3
-          return (
-            expect(a * b).equals(6) &&
-            expect(a * b * a).equals(12)
-          )
+          // benefits of 'expect'
+          //  - you get a stack trace
+          //  - cynic tries to invent a message about the failure
+          expect(a * b).equals(6)
+          expect(a * b * a).equals(12)
         }
       }
     }
     ```
 
-    - cynic test suites are recursive
-    - the async functions are tests
-    - objects can be nested to organize more and more tests
-    - tests can return another test, or whole suite
+## now run it!
 
-## execute in node, browser, or puppeteer
-
-- ### **use the cynic command line tool**
+- ### **you can run the suite file through the cynic cli**
 
     ```sh
     # run your tests in node
@@ -81,9 +84,9 @@
 
     if puppeteer isn't running properly, see puppeteer's [troubleshooting.md](https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md)
 
-- ### **or just execute your test suite manually**
+- ### **or you can just execute your test suite, manually, anywhere**
 
-    should work anywhere you can execute es modules
+    this should work anywhere you can import an es module
 
     ```ts
     import {test} from "cynic"
@@ -107,7 +110,7 @@
     })()
     ```
 
-    see which stats are available in the `Stats` interface in [interfaces.ts](./source/interfaces.ts)
+    see which stats are available in the `Stats` interface in [types.ts](./source/types.ts)
 
 ## so what do the console reports look like?
 
@@ -131,7 +134,7 @@
     ```
 
 - **report: a test returns false**  
-    a test which doesn't return true will simply display as failed
+    return false to indicate a failed test
 
     ```
     cynic example suite
@@ -152,8 +155,8 @@
     0.00 seconds
     ```
 
-- **report: a test throws a string**  
-    a thrown string will be displayed as the failure reason
+- **report: a test throws**  
+    a thrown string or error will be shown as the failure reason
 
     ```
     cynic example suite
@@ -176,7 +179,7 @@
     ```
 
 - **report: a test fails an assertion**  
-    you get the assert message, and a full stack trace
+    assertions will display a stack trace, and optional custom message
 
     ```
     cynic example suite
@@ -203,7 +206,7 @@
     ```
 
 - **report: a test fails an expectation**  
-    a message is generated for the failed expectation, and stack trace provided
+    stack trace is provided, and a failure reason is generated automatically
 
     ```
     cynic example suite
@@ -229,7 +232,7 @@
     0.00 seconds
     ```
 
-## hot tips
+## hot tips for big brains
 
 - use object nesting to group and organize tests arbitrarily
 
@@ -239,7 +242,7 @@
       "nested tests": {
         "more nested": {
           "exceedingly nested": {
-            "loltest": async() => true
+            "it works": async() => true
           }
         }
       }
@@ -254,7 +257,7 @@
       "assertions and expectations": async() => {
         const example = "abc"
 
-        // the "spartan assertion"
+        // let's call it "the spartan assertion"
         if (!example.includes("b"))
           throw `expected example to include "b"`
 
@@ -270,15 +273,8 @@
     export default <Suite>{
       "using 'assert'": async() => {
         const example = "abc"
-
-        assert(example === "abc",
-          `example must equal "abc"`)
-
-        assert(example.includes("b"),
-          `example should include "b"`)
-
-        // remember to return the asserts, or return true afterwards
-        return true
+        assert(example === "abc", `example must equal "abc"`)
+        assert(example.includes("b"), `example should include "b"`)
       }
     }
     ```
@@ -290,10 +286,8 @@
     export default <Suite>{
       "using 'expect'": async() => {
         const example = "abc"
-        return (
-          expect(example).defined() &&
-          expect(example).equals("abc")
-        )
+        expect(example).defined()
+        expect(example).equals("abc")
       }
     }
     ```
