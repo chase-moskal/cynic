@@ -2,10 +2,8 @@
 
 import openUrl from "open"
 import commander from "commander"
-import {relative, join} from "path"
-
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import {fileURLToPath} from "url"
+import {relative, join, dirname} from "path"
 
 import {runNode} from "./internals/runners/run-node.js"
 import {cynicTestFileName} from "./internals/constants.js"
