@@ -147,7 +147,9 @@
           ✓ can sum three numbers (assertion)
         ▽ bravo system
           ✓ can multiply numbers (expectation)
-    
+
+    ✘ can sum two numbers (boolean return) — failed
+
     1 FAILED tests
     0 thrown errors
     2 passed tests
@@ -160,17 +162,19 @@
 
     ```
     cynic example suite
-    
+
       ▽ examples
         ▽ alpha system
-    
+
     ═════ ✘ can sum two numbers (boolean return)
-    ――――――― arithmetic failed for interesting reasons!
-    
+    ――――――― arithmetic failed for interesting reasons
+
           ✓ can sum three numbers (assertion)
         ▽ bravo system
           ✓ can multiply numbers (expectation)
-    
+
+    ✘ can sum two numbers (boolean return) — arithmetic failed for interesting reasons
+
     1 FAILED tests
     1 thrown errors
     2 passed tests
@@ -183,7 +187,7 @@
 
     ```
     cynic example suite
-    
+
       ▽ examples
         ▽ alpha system
           ✓ can sum two numbers (boolean return)
@@ -194,10 +198,12 @@
               at can sum three numbers (assertion) (file:///work/cynic/dist/internals/example.test.js:13:20)
               at execute (file:///work/cynic/dist/internals/execute.js:13:34)
               [...]
-    
+
         ▽ bravo system
           ✓ can multiply numbers (expectation)
-    
+
+    ✘ can sum three numbers (assertion) — CynicBrokenAssertion: sum is wrong
+
     1 FAILED tests
     1 thrown errors
     2 passed tests
@@ -216,7 +222,7 @@
           ✓ can sum two numbers (boolean return)
           ✓ can sum three numbers (assertion)
         ▽ bravo system
-    
+
     ═════ ✘ can multiply numbers (expectation)
     ――――――― CynicBrokenExpectation: expect(7).equals(6): not equal, should be
               at composite (file:///work/cynic/dist/expect.js:46:19)
@@ -224,7 +230,9 @@
               at can multiply numbers (expectation) (file:///work/cynic/dist/internals/example.test.js:20:39)
               at execute (file:///work/cynic/dist/internals/execute.js:13:34)
               [...]
-    
+
+    ✘ can multiply numbers (expectation) — CynicBrokenExpectation: expect(7).equals(6): not equal, should be
+
     1 FAILED tests
     1 thrown errors
     2 passed tests
