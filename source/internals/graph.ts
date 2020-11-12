@@ -50,11 +50,13 @@ function writeReportForResults({
 			output: string
 			results: Results
 		}) {
+
 	const {inline, summaries} = processFailuresAndInline({
 		results: results,
 		formatStack: stack => stack
 			.replace(/\n/g, `\n${repeat(" ", (depth * 2) - 1)}`),
 	})
+
 	const inlineMessage = inline
 		.map(i => `\n${repeat("―", depth * 2)}― ${i}`)
 		.join("")
@@ -96,10 +98,7 @@ function calculateIcon(results: Results) {
 		: results[s_counts] ? icons.fail : icons.group
 }
 
-function processFailuresAndInline({
-			results,
-			formatStack,
-		}: {
+function processFailuresAndInline({results, formatStack}: {
 			results: Results
 			formatStack: (stack: string) => string
 		}) {
