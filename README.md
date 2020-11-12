@@ -68,6 +68,9 @@
 
     # run your tests in puppeteer (headless browser)
     cynic puppeteer example.test.js
+
+    # use node debugger
+    node inspect node_modules/cynic/dist/cli.js node example.test.js
     ```
 
     cynic executes the default export as a test suite
