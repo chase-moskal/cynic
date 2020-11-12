@@ -10,24 +10,14 @@ export function graph(results1: Results) {
 	function recursive(results2: Results, depth: number = 1) {
 		assertTestValidity(results2)
 		for (const [label, results3] of Object.entries(results2)) {
-			const failed = results3[s_counts] && !results3[s_pass]
-			const indent = calculateIndent({output, depth, results: results3})
-			const icon = calculateIcon(results3)
-
-			const {inline, summaries} = processFailuresAndInline({
+			const {summaries, caseReport} = writeReportForResults({
+				depth,
+				label,
+				output,
 				results: results3,
-				formatStack: stack => stack
-					.replace(/\n/g, `\n${repeat(" ", (depth * 2) - 1)}`),
 			})
-
-			const inlineMessage = inline
-				.map(i => `\n${repeat("―", depth * 2)}― ${i}`)
-				.join("")
-
+			output += caseReport
 			failSummary.push(...summaries)
-
-			const eol = failed ? "\n" : ""
-			output += `\n${indent}${icon} ${label}${inlineMessage}${eol}`
 			recursive(results3, depth + 1)
 		}
 	}
@@ -47,6 +37,35 @@ export function graph(results1: Results) {
 function assertTestValidity(results: Results) {
 	if (typeof results[s_pass] !== "boolean")
 		throw new Error(`invalid test result`)
+}
+
+function writeReportForResults({
+			depth,
+			label,
+			output,
+			results,
+		}: {
+			depth: number
+			label: string
+			output: string
+			results: Results
+		}) {
+	const {inline, summaries} = processFailuresAndInline({
+		results: results,
+		formatStack: stack => stack
+			.replace(/\n/g, `\n${repeat(" ", (depth * 2) - 1)}`),
+	})
+	const inlineMessage = inline
+		.map(i => `\n${repeat("―", depth * 2)}― ${i}`)
+		.join("")
+
+	const indent = calculateIndent({output, depth, results: results})
+	const icon = calculateIcon(results)
+	const failed = results[s_counts] && !results[s_pass]
+	const eol = failed ? "\n" : ""
+	const caseReport = `\n${indent}${icon} ${label}${inlineMessage}${eol}`
+
+	return {caseReport, summaries}
 }
 
 // ✔ ✘ ✓ ✗ · ▽ ☰ ○ ▤ ▢
