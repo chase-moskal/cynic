@@ -9,7 +9,6 @@ import {runNode} from "./internals/runners/run-node.js"
 import {cynicTestFileName} from "./internals/constants.js"
 import {runServer} from "./internals/runners/run-server.js"
 import {dieOnError} from "./internals/toolbox/die-on-error.js"
-import {runPuppeteer} from "./internals/runners/run-puppeteer.js"
 import {parseBoolean} from "./internals/toolbox/parse-boolean.js"
 
 dieOnError()
@@ -68,6 +67,7 @@ commander
 		if (open) openUrl(url)
 	}
 	else if (environment === "puppeteer") {
+		const {runPuppeteer} = await import("./internals/runners/run-puppeteer.js")
 		await runPuppeteer({
 			port,
 			label,
