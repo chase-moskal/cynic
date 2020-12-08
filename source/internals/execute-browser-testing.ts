@@ -16,6 +16,7 @@ export async function executeBrowserTesting({
 		cynicPath: string
 		importmapPath: string
 	}) {
+
 	runServer({
 		port,
 		label,
@@ -23,7 +24,9 @@ export async function executeBrowserTesting({
 		cynicPath,
 		importmapPath,
 	})
+
 	const url = `${origin}/${cynicTestFileName}`
 	console.log(`\n Test server running, see ${url}\n`)
+
 	if (open) openUrl(url)
 }
