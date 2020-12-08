@@ -1,8 +1,9 @@
 
+import {Stats} from "../../types.js"
+
 import {graph} from "./graph.js"
-import {Stats} from "../types.js"
 import {conclude} from "./conclude.js"
-import {Results} from "./internal-types.js"
+import {Results} from "./execution-types.js"
 
 export function renderReport({label, results, stats}: {
 		stats: Stats

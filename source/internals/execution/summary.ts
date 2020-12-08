@@ -1,5 +1,5 @@
 
-import {Results,} from "./internal-types.js"
+import {Results} from "./execution-types.js"
 
 import {
 	s_pass,

@@ -1,8 +1,8 @@
 
-import {Suite} from "../types.js"
-import {objectMapAsync} from "./toolbox/object-map-async.js"
+import {Suite} from "../../types.js"
+import {objectMapAsync} from "../toolbox/object-map-async.js"
 
-import {Results} from "./internal-types.js"
+import {Results} from "./execution-types.js"
 import {
 	s_pass,
 	s_error,

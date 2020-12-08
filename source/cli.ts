@@ -19,7 +19,6 @@ import {getValidatedCommandLineArguments} from "./internals/get-validate-command
 		.option("-O, --origin <string>", "url origin to test suite page", "http://localhost:8021")
 		.option("-c, --cynic-path <string>", "path to cynic library root", "node_modules/cynic")
 		.option("-i, --importmap-path <string>", "path to your own import map", undefined)
-		// .option("-m, --minimal <boolean>", "show less information", false)
 		.parse(process.argv)
 
 	const args = getValidatedCommandLineArguments(commander)

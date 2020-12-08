@@ -1,9 +1,5 @@
 
-import {
-	s_pass,
-	s_error,
-	s_counts,
-} from "./symbols.js"
+import {s_pass, s_error, s_counts} from "./symbols.js"
 
 export interface Results {
 	[s_pass]: boolean

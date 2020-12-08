@@ -3,32 +3,19 @@ import puppeteer from "puppeteer"
 import {runServer} from "./run-server.js"
 import {cynicTestFileName} from "../constants.js"
 
-export async function runPuppeteer({
-	port,
-	label,
-	origin,
-	suitePath,
-	cynicPath,
-	importmapPath,
-	launchOptions = {},
-}: {
-	port: number
-	label: string
-	origin: string
-	suitePath: string
-	cynicPath: string
-	importmapPath?: string
-	launchOptions?: puppeteer.LaunchOptions
-}) {
-	const server = runServer({
-		port,
-		label,
-		suitePath,
-		cynicPath,
-		importmapPath,
-	})
+export async function runPuppeteer(args: {
+		port: number
+		label: string
+		origin: string
+		suitePath: string
+		cynicPath: string
+		importmapPath?: string
+		launchOptions?: puppeteer.LaunchOptions
+	}) {
 
-	const browser = await puppeteer.launch(launchOptions)
+	const server = runServer(args)
+
+	const browser = await puppeteer.launch(args.launchOptions ?? {})
 	const page = await browser.newPage()
 	await page.goto(`${origin}/${cynicTestFileName}`)
 	await page.waitFor(".report")

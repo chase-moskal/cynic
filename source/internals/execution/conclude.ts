@@ -1,5 +1,5 @@
 
-import {Stats} from "../types.js"
+import {Stats} from "../../types.js"
 
 export function conclude({total, failed, errors, duration}: Stats) {
 	let output = ""
