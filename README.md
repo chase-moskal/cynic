@@ -147,9 +147,7 @@
     
     ═════ ✘ can sum two numbers (boolean return)
     
-          ✓ can sum three numbers (assertion)
         ▽ bravo system
-          ✓ can multiply numbers (expectation)
 
     ✘ can sum two numbers (boolean return) — failed
 
@@ -172,9 +170,7 @@
     ═════ ✘ can sum two numbers (boolean return)
     ――――――― arithmetic failed for interesting reasons
 
-          ✓ can sum three numbers (assertion)
         ▽ bravo system
-          ✓ can multiply numbers (expectation)
 
     ✘ can sum two numbers (boolean return) — arithmetic failed for interesting reasons
 
@@ -193,7 +189,6 @@
 
       ▽ examples
         ▽ alpha system
-          ✓ can sum two numbers (boolean return)
     
     ═════ ✘ can sum three numbers (assertion)
     ――――――― CynicBrokenAssertion: sum is wrong
@@ -203,7 +198,6 @@
               [...]
 
         ▽ bravo system
-          ✓ can multiply numbers (expectation)
 
     ✘ can sum three numbers (assertion) — CynicBrokenAssertion: sum is wrong
 
@@ -222,8 +216,6 @@
     
       ▽ examples
         ▽ alpha system
-          ✓ can sum two numbers (boolean return)
-          ✓ can sum three numbers (assertion)
         ▽ bravo system
 
     ═════ ✘ can multiply numbers (expectation)

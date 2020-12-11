@@ -1,8 +1,9 @@
 
 import {Results} from "../execution-types.js"
+import {calculateIcon} from "./calculate-icon.js"
 import {s_pass, s_counts, s_error} from "../symbols.js"
 
-export function processFailuresAndInline({results, formatStack}: {
+export function processFailuresAndInlineErrorMessages({results, formatStack}: {
 			results: Results
 			formatStack: (stack: string) => string
 		}) {
@@ -32,5 +33,8 @@ export function processFailuresAndInline({results, formatStack}: {
 		}
 	}
 
-	return {inline, summaries}
+	return {
+		inline,
+		summaries: summaries.map(summary => `${calculateIcon(results)} ${summary}`),
+	}
 }

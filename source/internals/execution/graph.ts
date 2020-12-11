@@ -1,28 +1,14 @@
 
 import {Results} from "./execution-types.js"
-import {assertTestValidity} from "./graphing/assert-test-validity.js"
-import {writeReportForResults} from "./graphing/write-report-for-results.js"
+import {recursivelyGenerateGraph} from "./graphing/recursively-generate-graph.js"
+import {recursivelyCountFailures} from "./graphing/recursively-count-failures.js"
+import {recursivelyAssertValidity} from "./graphing/recursively-assert-validity.js"
 
 export function graph(results1: Results) {
-	let output = ""
-	const failSummary: string[] = []
-
-	function recursive(results2: Results, depth: number = 1) {
-		assertTestValidity(results2)
-		for (const [label, results3] of Object.entries(results2)) {
-			const {summaries, caseReport} = writeReportForResults({
-				depth,
-				label,
-				output,
-				results: results3,
-			})
-			output += caseReport
-			failSummary.push(...summaries)
-			recursive(results3, depth + 1)
-		}
-	}
-
-	recursive(results1)
+	recursivelyAssertValidity(results1)
+	const failCount = recursivelyCountFailures(results1)
+	const onlyShowErrors = failCount > 0
+	const {output, failSummary} = recursivelyGenerateGraph(results1, onlyShowErrors)
 	return output + (
 		failSummary.length > 0
 			? "\n\n" + failSummary.join("\n")
