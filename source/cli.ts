@@ -5,7 +5,7 @@ import {dieOnError} from "./internals/toolbox/die-on-error.js"
 import {executeNodeTesting} from "./internals/execute-node-testing.js"
 import {executeBrowserTesting} from "./internals/execute-browser-testing.js"
 import {executePuppeteerTesting} from "./internals/execute-puppeteer-testing.js"
-import {getValidatedCommandLineArguments} from "./internals/get-validate-command-line-arguments.js"
+import {getValidatedCommandLineArguments} from "./internals/get-validated-command-line-arguments.js"
 
 ;(async() => {
 
