@@ -1,7 +1,7 @@
 
 import {CynicBrokenExpectation} from "./errors.js"
 
-export function expect(value: any) {
+export function expect<xValue>(value: xValue) {
 
 	const ok = () => !!value
 
@@ -13,14 +13,31 @@ export function expect(value: any) {
 		return value === comparison
 	}
 
-	const throws = () => {
+	const throws = (): xValue extends (...args: any) => never
+			? boolean
+			: xValue extends (...args: any[]) => Promise<any>
+				? Promise<boolean>
+				: boolean => {
 		if (typeof value !== "function") throw new CynicBrokenExpectation(
 			`non-function cannot throw (${s(value)})`
 		)
-		let error: Error = undefined
-		try { value() }
-		catch(e) { error = e }
-		return error !== undefined
+		const throwFailure = () => {
+			throw new CynicBrokenExpectation(`expect(${s(value)}).throws(): function should throw, but didn't`)
+		}
+		let thrown = false
+		try {
+			const result = value()
+			const isPromise = typeof (result ?? {}).then === "function"
+			if (isPromise)
+				return result
+					.then(throwFailure)
+					.catch(() => true)
+		}
+		catch (e) {
+			thrown = true
+		}
+		if (thrown) return <any>true
+		else throwFailure()
 	}
 
 	return {
@@ -39,10 +56,7 @@ export function expect(value: any) {
 			`expect(${s(value)}).equals(${s(comparison)}): not equal, should be`
 		)(comparison),
 
-		throws: throwOnFailure(
-			throws,
-			`expect(${s(value)}).throws(): nothing thrown, should be`
-		),
+		throws,
 
 		not: {
 			ok: throwOnFailure(
@@ -62,8 +76,16 @@ export function expect(value: any) {
 			)(comparison),
 
 			throws: throwOnFailure(
-				invert(throws),
-				`expect(${s(value)}).not.throws(): something was thrown, should not be`
+				() => {
+					try {
+						throws()
+						return false
+					}
+					catch (e) {
+						return true
+					}
+				},
+				`expect(${s(value)}).throws(): function should throw, but didn't`
 			),
 		},
 	}
