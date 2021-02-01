@@ -66,17 +66,16 @@ export default <Suite>{
 	},
 
 	".throws()": async() => {
-		const succeedGood1 = expect(() => {throw new Error()}).throws()
-		const succeedGood2 = expect(() => {throw "string"}).throws()
-		const succeedGood3async = await expect(async() => {throw new Error()}).throws()
-		const failGood1 = throwsError(() => expect(() => true).throws())
-		const failGood2 = throwsError(() => expect(() => false).throws())
-		try {
-			void await expect(async() => true).throws()
-			throw new Error("should have thrown")
-		}
-		catch (e) {}
-		return (succeedGood1 && succeedGood2 && succeedGood3async && failGood1 && failGood2)
+		expect(() => {throw new Error()}).throws()
+		expect(() => {throw "string"}).throws()
+		await expect(async() => {throw new Error()}).throws()
+		throwsError(() => expect(() => true).throws())
+		throwsError(() => expect(() => false).throws())
+
+		let threw = false
+		try { await expect(async() => true).throws() }
+		catch (e) { threw = true }
+		if (!threw) throw "should have thrown because the function didn't throw"
 	},
 
 	".not.throws()": async() => {

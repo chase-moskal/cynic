@@ -13,31 +13,38 @@ export function expect<xValue>(value: xValue) {
 		return value === comparison
 	}
 
+	function isPromise(val: any) {
+		return typeof (val ?? {}).then === "function"
+	}
+
 	const throws = (): xValue extends (...args: any) => never
 			? boolean
 			: xValue extends (...args: any[]) => Promise<any>
 				? Promise<boolean>
 				: boolean => {
-		if (typeof value !== "function") throw new CynicBrokenExpectation(
-			`non-function cannot throw (${s(value)})`
-		)
+		if (typeof value !== "function")
+			throw new CynicBrokenExpectation(`non-function cannot throw (${s(value)})`)
 		const throwFailure = () => {
 			throw new CynicBrokenExpectation(`expect(${s(value)}).throws(): function should throw, but didn't`)
 		}
-		let thrown = false
+		let threw = false
 		try {
 			const result = value()
-			const isPromise = typeof (result ?? {}).then === "function"
-			if (isPromise)
-				return result
-					.then(throwFailure)
-					.catch(() => true)
+			if (isPromise(result)) {
+				const promise: Promise<any> = result
+				return <any>promise
+					.catch(() => threw = true)
+					.then(() => {
+						if (!threw) throwFailure()
+						else return true
+					})
+			}
 		}
 		catch (e) {
-			thrown = true
+			threw = true
 		}
-		if (thrown) return <any>true
-		else throwFailure()
+		if (!threw) throwFailure()
+		else return <any>true
 	}
 
 	return {
