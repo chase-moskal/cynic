@@ -10,10 +10,5 @@ export async function executePuppeteerTesting(args: {
 
 	const {runPuppeteer} = await import("./runners/run-puppeteer.js")
 
-	await runPuppeteer({
-		...args,
-		launchOptions: open
-			? {headless: false, devtools: true}
-			: {headless: true, devtools: false},
-	})
+	await runPuppeteer(args)
 }
