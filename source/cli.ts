@@ -11,17 +11,20 @@ dieOnError()
 const {args, params} = makeCommand()
 const details = {...args, ...params}
 
-switch (args.environment) {
+switch (args.runtime) {
 
 	case "node":
 		await executeNodeTesting(details)
+		break
 
 	case "browser":
 		await executeBrowserTesting(details)
+		break
 
 	case "puppeteer":
 		await executePuppeteerTesting(details)
+		break
 
 	default:
-		throw new Error(`invalid environment "${args.environment}", expected "node", "browser", or "puppeteer"`)
+		throw new Error(`invalid runtime "${args.runtime}", expected "node", "browser", or "puppeteer"`)
 }

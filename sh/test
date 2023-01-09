@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+runtime="$1"
+cli="dist/cli.js"
+suite="dist/internals/tests/cynic.test.js"
+
+if [[ $runtime = "" ]]; then
+	runtime="node"
+fi
+
+case $runtime in
+
+	node)
+		node $cli node $suite \
+			--label "cynic self-testing suite (node)" \
+			--cynic "."
+		;;
+
+	node-debug)
+		node inspect $cli node $suite \
+			--label "cynic self-testing suite (node)" \
+			--cynic "."
+		;;
+
+	browser)
+		node $cli browser $suite \
+			+open \
+			--label "cynic self-testing suite (browser)" \
+			--cynic "."
+		;;
+
+	puppeteer)
+		node $cli puppeteer $suite \
+			--label "cynic self-testing suite (puppeteer)" \
+			--cynic "."
+		;;
+
+	*)
+		echo "unkown argument 'runtime' '$runtime'" 1>&2
+		;;
+
+esac

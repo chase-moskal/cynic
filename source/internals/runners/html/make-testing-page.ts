@@ -14,6 +14,7 @@ export const makeTestingPage = ({
 	<html>
 		<head>
 			<meta charset="utf-8"/>
+			<meta name="darkreader" content="dark"/>
 			<title>${escapeHtml(label)}</title>
 			<style>
 				html, body {
@@ -30,17 +31,20 @@ export const makeTestingPage = ({
 					}
 				}
 			</script>
-			${importmap
-				? html`<script type="importmap-shim" src="${importmap}"></script>`
-				: ""}
-			<script async defer type="module-shim"></script>
-			<script async defer src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.wasm.js"></script>
 
-			<script async defer type="module-shim">
+			${
+				importmap
+					? html`<script type="importmap-shim" src="${importmap}"></script>`
+					: ""
+			}
+
+			<script defer type="module-shim">
 				import {runBrowser} from "./${cynic}/dist/internals/runners/run-browser.js"
 				import suite from "./${suite}"
 				runBrowser(${JSON.stringify(label)}, suite)
 			</script>
+
+			<script defer src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.wasm.js"></script>
 		</head>
 	</html>
 `

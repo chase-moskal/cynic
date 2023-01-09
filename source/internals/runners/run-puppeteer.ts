@@ -15,7 +15,6 @@ export async function runPuppeteer(
 
 	const page = await browser.newPage()
 	const path = `${details["--host"]}:${details["--port"]}/${cynicTestFileName}`
-	console.log("path", path)
 
 	await page.goto(path)
 	await page.waitForSelector(".report")
