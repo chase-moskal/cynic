@@ -1,6 +1,6 @@
 {
 	"name": "cynic",
-	"version": "0.2.0-dev.0",
+	"version": "0.2.0-dev.1",
 	"description": "async testing framework for es-modules",
 	"license": "MIT",
 	"author": "Chase Moskal <chasemoskal@gmail.com",
