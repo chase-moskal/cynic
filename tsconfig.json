@@ -1,19 +1,24 @@
 {
 	"compilerOptions": {
-		"baseUrl": ".",
+		// "strict": true,
 		"rootDir": "source",
 		"outDir": "dist",
-		"target": "esnext",
-		"lib": ["esnext", "dom"],
+		"target": "es2019",
+		"lib": ["es2019", "dom", "webworker"],
 		"module": "esnext",
 		"moduleResolution": "node",
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
-		"noImplicitAny": true,
+		"esModuleInterop": true,
 		"sourceMap": true,
-		"declaration": true
+		"declaration": true,
+		"skipLibCheck": true,
 	},
 	"include": [
-		"source/**/*"
-	]
+		"source/**/*.ts",
+		"source/**/*.js"
+	],
+	"exclude": [
+		"source/**/_*"
+	],
 }

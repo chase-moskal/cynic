@@ -1,4 +1,6 @@
 
+import {makeCommand} from "./command.js"
+
 export type Suite = (
 	void
 	| boolean
@@ -19,3 +21,21 @@ export interface FnMock {
 		returned: any
 	}[]
 }
+
+export type RawArgs = {
+	runtime: string
+	suite: string
+}
+
+export type RawParams = {
+	"--label": string
+	"--cynic": string
+	"--importmap": string
+	"--port": number
+	"--host": string
+	"--open": boolean
+}
+
+export type Args = ReturnType<typeof makeCommand>["args"]
+export type Params = ReturnType<typeof makeCommand>["params"]
+export type Details = Args & Params

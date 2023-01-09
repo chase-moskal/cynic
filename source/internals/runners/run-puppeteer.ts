@@ -1,23 +1,22 @@
 
-import {runServer} from "./run-server.js"
 import {LaunchOptions, launch} from "puppeteer"
+
+import {Details} from "../../types.js"
+import {runServer} from "./run-server.js"
 import {cynicTestFileName} from "../constants.js"
 
-export async function runPuppeteer(args: {
-		port: number
-		label: string
-		origin: string
-		suitePath: string
-		cynicPath: string
-		importmapPath?: string
-		launchOptions?: LaunchOptions
-	}) {
+export async function runPuppeteer(
+		details: Details,
+		launchOptions?: LaunchOptions,
+	) {
 
-	const server = runServer(args)
-	const browser = await launch(args.launchOptions ?? {})
+	const server = runServer(details)
+	const browser = await launch(launchOptions ?? {})
 
 	const page = await browser.newPage()
-	await page.goto(`${args.origin}/${cynicTestFileName}`)
+	const path = `${details["--host"]}:${details["--port"]}/${cynicTestFileName}`
+
+	await page.goto(path)
 	await page.waitForSelector(".report")
 
 	const {report, failed} = await page.evaluate(() => ({

@@ -1,14 +1,9 @@
 
-export async function executePuppeteerTesting(args: {
-		port: number
-		label: string
-		origin: string
-		suitePath: string
-		cynicPath: string
-		importmapPath: string
-	}) {
+import {Details} from "../types.js"
+
+export async function executePuppeteerTesting(details: Details) {
 
 	const {runPuppeteer} = await import("./runners/run-puppeteer.js")
 
-	await runPuppeteer(args)
+	await runPuppeteer(details)
 }

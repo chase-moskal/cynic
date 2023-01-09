@@ -3,6 +3,12 @@ import {Suite, expect} from "../../cynic.js"
 import {throwsError} from "./testing.test.js"
 
 export default <Suite>{
+	"can process undefined": async() => {
+		expect(undefined).equals(undefined)
+		expect(undefined).not.equals("")
+		expect("").not.equals(undefined)
+	},
+
 	".ok()": async() => {
 		const succeedGood = expect(true).ok()
 		const failGood = throwsError(() => expect(false).ok())

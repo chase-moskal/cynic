@@ -14,12 +14,9 @@ export function renderReport({label, results, stats}: {
 	const chart = graph(results)
 	const conclusion = conclude(stats)
 
-	let report = ""
-	report += `\n${label}`
+	let report = label
 	report += `\n${chart}`
 	report += `\n${conclusion}`
-	report += `\n`
 
-	report = report.replace(/\n/gi, "\n ")
 	return report
 }

@@ -1,7 +1,13 @@
 
 export function throwsError(func: Function) {
-	let error: Error = undefined
-	try { func() }
-	catch (e) { error = e }
-	return error !== undefined
+	let thrown = false
+
+	try {
+		func()
+	}
+	catch (e) {
+		thrown = true
+	}
+
+	return thrown
 }
