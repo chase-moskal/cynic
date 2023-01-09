@@ -92,7 +92,7 @@ export function expect<xValue>(value: xValue) {
 						return true
 					}
 				},
-				`expect(${s(value)}).throws(): function should throw, but didn't`
+				`expect(${s(value)}).not.throws(): function should not throw, but did`
 			),
 		},
 	}
