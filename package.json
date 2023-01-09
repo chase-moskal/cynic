@@ -45,7 +45,7 @@
 	"homepage": "https://github.com/chase-moskal/cynic#readme",
 	"devDependencies": {
 		"@types/finalhandler": "^1.2.0",
-		"@types/node": "^18.11.17",
+		"@types/node": "^18.11.18",
 		"@types/puppeteer": "^7.0.4",
 		"@types/serve-static": "^1.15.0",
 		"http-server": "^14.1.1",
