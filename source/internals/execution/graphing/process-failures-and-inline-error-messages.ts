@@ -35,6 +35,6 @@ export function processFailuresAndInlineErrorMessages({results, formatStack}: {
 
 	return {
 		inline,
-		summaries: summaries.map(summary => `${calculateIcon(results)} ${summary}`),
+		summaries: summaries.map(summary => calculateIcon(results) + summary),
 	}
 }

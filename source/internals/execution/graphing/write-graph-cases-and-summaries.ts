@@ -38,7 +38,7 @@ export function writeGraphCasesAndSummaries({
 	const hidden = results[s_counts] && (onlyShowErrors && !failed)
 	const caseReport = hidden
 		? ``
-		: `\n${indent}${icon} ${label}${inlineMessage}${eol}`
+		: "\n" + indent + icon + label + inlineMessage + eol
 
 	return {caseReport, summaries}
 }
