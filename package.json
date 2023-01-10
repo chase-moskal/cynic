@@ -5,15 +5,13 @@
 	"license": "MIT",
 	"author": "Chase Moskal <chasemoskal@gmail.com",
 	"type": "module",
+	"bin": "dist/cli.js",
 	"main": "dist/cynic.js",
 	"module": "dist/cynic.js",
 	"files": [
 		"dist",
 		"source"
 	],
-	"bin": {
-		"cynic": "dist/cli.js"
-	},
 	"scripts": {
 		"build": "run-s clean && run-p compile && run-s test",
 		"clean": "rm -rf dist && mkdir -p dist",
