@@ -9,12 +9,13 @@ export async function runPuppeteer(
 		details: Details,
 		launchOptions?: LaunchOptions,
 	) {
+	const {host, port} = details
 
 	const server = runServer(details)
 	const browser = await launch(launchOptions ?? {})
 
 	const page = await browser.newPage()
-	const path = `${details["--host"]}:${details["--port"]}/${cynicTestFileName}`
+	const path = `${host}:${port}/${cynicTestFileName}`
 
 	await page.goto(path)
 	await page.waitForSelector(".report")

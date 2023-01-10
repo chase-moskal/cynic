@@ -15,5 +15,5 @@ export async function executeNodeTesting(details: Details) {
 
 	const {default: suite} = await import(importPath)
 
-	await runNode(details["--label"], suite)
+	await runNode(details["label"], suite)
 }

@@ -31,46 +31,46 @@ export function makeCommand() {
 
 		params: {
 
-			"--help": {
+			help: {
 				type: Boolean,
 				mode: "option",
 				help: `trigger the help page`,
 			},
 
-			"--label": {
+			label: {
 				type: String,
 				mode: "default",
 				default: "test suite",
 				help: `name of the test suite`,
 			},
 
-			"--cynic": {
+			cynic: {
 				type: String,
 				mode: "default",
 				default: "node_modules/cynic",
 				help: `path to cynic library root`,
 			},
 
-			"--importmap": {
+			importmap: {
 				type: String,
 				mode: "option",
 				help: `path to your own import map`,
 			},
 
-			"--open": {
+			open: {
 				type: Boolean,
 				mode: "option",
 				help: `(when runtime=browser) attempt to prompt open default web browser`,
 			},
 
-			"--port": {
+			port: {
 				type: Number,
 				mode: "default",
 				default: 8021,
 				help: `(when runtime=puppeteer) port to run puppeteer server`,
 			},
 
-			"--host": {
+			host: {
 				type: String,
 				mode: "default",
 				default: "http://localhost",

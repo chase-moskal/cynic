@@ -5,9 +5,9 @@ import {noop as html} from "../../toolbox/template-noop.js"
 
 export const makeTestingPage = ({
 		suite,
-		"--label": label,
-		"--cynic": cynic,
-		"--importmap": importmap,
+		label,
+		cynic,
+		importmap,
 	}: Details) => html`
 
 	<!doctype html>

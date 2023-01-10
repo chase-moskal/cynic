@@ -24,6 +24,6 @@ export function runServer(details: Details) {
 		}
 	})
 
-	server.listen(details["--port"])
+	server.listen(details.port)
 	return server
 }

@@ -28,12 +28,12 @@ export type RawArgs = {
 }
 
 export type RawParams = {
-	"--label": string
-	"--cynic": string
-	"--importmap": string
-	"--port": number
-	"--host": string
-	"--open": boolean
+	label: string
+	cynic: string
+	importmap: string
+	port: number
+	host: string
+	open: boolean
 }
 
 export type Args = ReturnType<typeof makeCommand>["args"]
